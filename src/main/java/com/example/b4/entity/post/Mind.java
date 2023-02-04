@@ -2,9 +2,7 @@ package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseEntity;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -13,15 +11,15 @@ import javax.persistence.*;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-public class Advice extends BaseEntity {
+public class Mind extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adviceId;
+    private Long mindId;
 
     @OneToOne
     private Post post;
 
-    private String adviceDetails;
-    private AdviceSecretStatus status;
+    private String  mindDetails;
+    private MindStatus status;
 
 }

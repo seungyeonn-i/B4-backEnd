@@ -3,9 +3,7 @@ package com.example.b4.entity.post;
 import com.example.b4.entity.BaseEntity;
 import com.example.b4.entity.user.User;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -21,11 +19,11 @@ public class Comment extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "advice_id")
-    private Advice advice;
+    private Mind mind;
 
     @ManyToOne @JoinColumn(name = "user_id")
     private User user;
 
-    private String adviceDetails;
+    private String commentDetail;
 
 }

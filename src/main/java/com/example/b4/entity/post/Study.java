@@ -23,7 +23,7 @@ public class Study extends BaseEntity {
 //    private Post post;
 
     private String studyDetails;
-    private String attachedFile;
+    private String studyAttachedFile;
 
 
 }

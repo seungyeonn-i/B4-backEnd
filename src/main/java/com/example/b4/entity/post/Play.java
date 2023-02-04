@@ -24,9 +24,13 @@ public class Play extends BaseTimeEntity {
     private String submitLink;
     private Date dueTo;
     private String playDetails;
+    private String playAttachedFiles;
 
     @Enumerated(EnumType.STRING)
-    private PlayStatus playStatus;
+    private PlayStatus status;
+
+
+
 
 
 
