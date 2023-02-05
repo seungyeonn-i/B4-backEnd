@@ -28,7 +28,6 @@ public class UserInfo extends BaseTimeEntity {
     private String userPhone;
     private Date userBirth;
     private String userJob;
-    private String userUse;
     private String userEmail;
 
 
