@@ -13,7 +13,7 @@ import javax.persistence.*;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-@Table(name="_User")
+@Table(name="Member")
 public class User extends BaseTimeEntity {
 
     @Id

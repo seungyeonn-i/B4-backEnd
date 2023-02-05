@@ -27,6 +27,6 @@ public class Answer extends BaseEntity {
     private String answerDetails;
     private String answerAttachedFiles;
 
-    private int like;
-    private int unlike;
+    private int likes;
+    private int unlikes;
 }

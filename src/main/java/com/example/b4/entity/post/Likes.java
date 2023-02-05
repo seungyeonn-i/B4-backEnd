@@ -12,11 +12,11 @@ import javax.persistence.*;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-public class Like extends BaseTimeEntity {
+public class Likes extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeId;
+    private Long likesId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,6 +24,6 @@ public class Like extends BaseTimeEntity {
     @ManyToOne @JoinColumn(name = "post_id")
     private Post post;
 
-    private LikeStatus status;
+    private LikesStatus status;
 
 }
