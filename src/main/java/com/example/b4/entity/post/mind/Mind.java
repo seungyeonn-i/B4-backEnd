@@ -20,7 +20,7 @@ public class Mind extends BaseEntity {
     @OneToOne
     private Post post;
 
-    private String  mindDetails;
+    private String mindDetails;
     private MindStatus status;
 
 }

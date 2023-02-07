@@ -1,4 +1,4 @@
-package com.example.b4.dto.like;
+package com.example.b4.dto.comment.like;
 
 public class LikeDto {
     private int commentId;
