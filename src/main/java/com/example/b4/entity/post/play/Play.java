@@ -1,6 +1,7 @@
-package com.example.b4.entity.post;
+package com.example.b4.entity.post.play;
 
 import com.example.b4.entity.BaseTimeEntity;
+import com.example.b4.entity.post.Post;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -24,7 +25,6 @@ public class Play extends BaseTimeEntity {
     private String submitLink;
     private Date dueTo;
     private String playDetails;
-    private String playAttachedFiles;
 
     @Enumerated(EnumType.STRING)
     private PlayStatus status;

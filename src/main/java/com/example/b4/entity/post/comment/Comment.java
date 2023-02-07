@@ -1,6 +1,7 @@
-package com.example.b4.entity.post;
+package com.example.b4.entity.post.comment;
 
 import com.example.b4.entity.BaseEntity;
+import com.example.b4.entity.post.mind.Mind;
 import com.example.b4.entity.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;

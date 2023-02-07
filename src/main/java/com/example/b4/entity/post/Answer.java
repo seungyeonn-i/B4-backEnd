@@ -1,6 +1,7 @@
 package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseEntity;
+import com.example.b4.entity.post.study.Study;
 import com.example.b4.entity.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,4 @@ public class Answer extends BaseEntity {
     private String answerDetails;
     private String answerAttachedFiles;
 
-    private int likes;
-    private int unlikes;
 }

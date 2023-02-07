@@ -1,6 +1,7 @@
-package com.example.b4.entity.post;
+package com.example.b4.entity.post.mind;
 
 import com.example.b4.entity.BaseEntity;
+import com.example.b4.entity.post.Post;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

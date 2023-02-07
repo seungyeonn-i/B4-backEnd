@@ -1,6 +1,6 @@
 package com.example.b4.entity;
 
-import com.example.b4.entity.post.Category;
+import com.example.b4.entity.post.play.PlayCategory;
 import com.example.b4.entity.post.Post;
 import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
@@ -38,7 +38,7 @@ public class createEntityTest {
         Post post = Post.builder()
                 .postId(1L)
                 .title("hello")
-                .category(Category.국어)
+                .playCategory(PlayCategory.요리)
                 .user(user)
                 .build();
 

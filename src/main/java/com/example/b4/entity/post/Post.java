@@ -1,6 +1,7 @@
 package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseTimeEntity;
+import com.example.b4.entity.post.play.PlayCategory;
 import com.example.b4.entity.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,11 @@ public class Post extends BaseTimeEntity {
 
     private String title;
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private PlayCategory playCategory;
+
+    private String AttachedFile;
+
+    private Boolean bookmark;
+
 
 }

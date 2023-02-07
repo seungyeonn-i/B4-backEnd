@@ -1,4 +1,4 @@
-package com.example.b4.entity.post;
+package com.example.b4.entity.post.study;
 
 import com.example.b4.entity.BaseEntity;
 import lombok.Data;
@@ -23,7 +23,6 @@ public class Study extends BaseEntity {
 //    private Post post;
 
     private String studyDetails;
-    private String studyAttachedFile;
 
 
 }

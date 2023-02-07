@@ -1,8 +1,8 @@
 package com.example.b4.entity;
 
-import com.example.b4.entity.post.Category;
-import com.example.b4.entity.post.Play;
-import com.example.b4.entity.post.PlayStatus;
+import com.example.b4.entity.post.play.PlayCategory;
+import com.example.b4.entity.post.play.Play;
+import com.example.b4.entity.post.play.PlayStatus;
 import com.example.b4.entity.post.Post;
 import com.example.b4.entity.user.User;
 import com.example.b4.repository.PlayRepository;
@@ -16,7 +16,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.util.Optional;
 
 import static com.example.b4.entity.user.UserRole.MENTOR;
 
@@ -44,10 +43,9 @@ public class createPlayPostTest {
 
         Post post = Post.builder()
                 .title("play1")
-                .category(Category.국어)
+                .playCategory(PlayCategory.요리)
                 .user(user)
                 .build();
-
         postRepository.save(post);
 
         Play play = Play.builder()
@@ -65,6 +63,7 @@ public class createPlayPostTest {
         Play hihihihi = playRepository.findByPlayDetails("hihihihi");
         Assertions.assertThat(byId).isEqualTo(post);
         Assertions.assertThat(hihihihi).isEqualTo(play);
+        Assertions.assertThat(hihihihi.getStatus()).isEqualTo(PlayStatus.반려);
 
 
     }
