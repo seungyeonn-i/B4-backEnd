@@ -1,6 +1,7 @@
 package com.example.b4.entity.post.comment;
 
 import com.example.b4.entity.BaseEntity;
+import com.example.b4.entity.post.Post;
 import com.example.b4.entity.post.mind.Mind;
 import com.example.b4.entity.user.User;
 import lombok.Data;
@@ -19,12 +20,13 @@ public class Comment extends BaseEntity {
     private Long commentId;
 
     @ManyToOne
-    @JoinColumn(name = "advice_id")
-    private Mind mind;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @ManyToOne @JoinColumn(name = "user_id")
     private User user;
 
     private String commentDetail;
+    private String commentAttachedFile;
 
 }
