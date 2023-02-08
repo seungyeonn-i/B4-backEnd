@@ -19,10 +19,10 @@ public class Likes extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likesId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne @JoinColumn(name = "post_id")
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "post_id")
     private Post post;
 
     private LikesStatus status;

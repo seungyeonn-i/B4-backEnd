@@ -19,7 +19,7 @@ public class Play extends BaseTimeEntity {
     private Long playId;
 
 //    @DiscriminatorColumn(name="DTYPE")
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Post post;
 
     private String submitLink;

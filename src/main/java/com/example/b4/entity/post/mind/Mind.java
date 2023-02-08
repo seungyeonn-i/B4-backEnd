@@ -17,7 +17,7 @@ public class Mind extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mindId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Post post;
 
     private String mindDetails;
