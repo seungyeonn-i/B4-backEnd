@@ -24,5 +24,7 @@ public class Study extends BaseEntity {
 
     private String studyDetails;
 
-
+    public Study(String studyDetails) {
+        this.studyDetails = studyDetails;
+    }
 }

@@ -1,5 +1,8 @@
 package com.example.b4.dto.mind;
 
+import lombok.Data;
+
+@Data
 public class MindListDto {
     private String title;
     private String user;

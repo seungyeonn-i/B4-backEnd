@@ -1,5 +1,8 @@
 package com.example.b4.dto.study;
 
+import lombok.Data;
+
+@Data
 public class StudyListDto {
     private String title;
     private String user;

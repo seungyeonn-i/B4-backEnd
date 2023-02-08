@@ -31,5 +31,11 @@ public class Post extends BaseTimeEntity {
 
     private Boolean bookmark;
 
-
+    public Post(User user, String title, PlayCategory playCategory, String attachedFile, Boolean bookmark) {
+        this.user = user;
+        this.title = title;
+        this.playCategory = playCategory;
+        AttachedFile = attachedFile;
+        this.bookmark = bookmark;
+    }
 }

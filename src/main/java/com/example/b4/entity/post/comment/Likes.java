@@ -3,6 +3,7 @@ package com.example.b4.entity.post.comment;
 import com.example.b4.entity.BaseTimeEntity;
 import com.example.b4.entity.post.Post;
 import com.example.b4.entity.user.User;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -27,4 +28,10 @@ public class Likes extends BaseTimeEntity {
 
     private LikesStatus status;
 
+    @Builder
+    public Likes(User user, Post post, LikesStatus status) {
+        this.user = user;
+        this.post = post;
+        this.status = status;
+    }
 }

@@ -1,9 +1,11 @@
 package com.example.b4.dto.mind;
 
 import com.example.b4.dto.comment.CommentDto;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class MindDetailDto {
     private String category;
     private String title;
