@@ -1,11 +1,10 @@
-package com.example.b4.entity.post.comment;
+package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseEntity;
-import com.example.b4.entity.post.Post;
-import com.example.b4.entity.post.mind.Mind;
 import com.example.b4.entity.user.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -13,6 +12,7 @@ import javax.persistence.*;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Entity
 public class Comment extends BaseEntity {
 
@@ -20,8 +20,7 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "post_id")
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "user_id")

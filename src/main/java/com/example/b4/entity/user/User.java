@@ -1,18 +1,15 @@
 package com.example.b4.entity.user;
 
 import com.example.b4.entity.BaseTimeEntity;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Data
-@SuperBuilder
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(callSuper=false)
 @Table(name="Member")
 public class User extends BaseTimeEntity {
 

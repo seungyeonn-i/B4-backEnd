@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@MappedSuperclass
 @SuperBuilder
+@MappedSuperclass
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {

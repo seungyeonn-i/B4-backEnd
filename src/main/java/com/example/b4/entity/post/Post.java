@@ -1,22 +1,28 @@
 package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseTimeEntity;
-import com.example.b4.entity.post.play.PlayCategory;
 import com.example.b4.entity.user.User;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
-@Data
-@SuperBuilder
-@NoArgsConstructor
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
+@Getter
+@SuperBuilder
+@NoArgsConstructor(access = PROTECTED)
+@EqualsAndHashCode(callSuper=false)
 public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long postId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,18 +30,23 @@ public class Post extends BaseTimeEntity {
     private User user;
 
     private String title;
-    @Enumerated(EnumType.STRING)
-    private PlayCategory playCategory;
 
-    private String AttachedFile;
+//    @Enumerated(EnumType.STRING)
+    private String category;
+
+    private String attachedFile;
 
     private Boolean bookmark;
 
-    public Post(User user, String title, PlayCategory playCategory, String attachedFile, Boolean bookmark) {
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+//    @Builder
+    public Post(User user, String title, String category, String attachedFile, Boolean bookmark) {
         this.user = user;
         this.title = title;
-        this.playCategory = playCategory;
-        AttachedFile = attachedFile;
+        this.category = category;
+        this.attachedFile = attachedFile;
         this.bookmark = bookmark;
     }
 }
