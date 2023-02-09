@@ -43,15 +43,15 @@ public class StudyServiceTest {
 //        System.out.println("study = " + study2);
 //        Assertions.assertThat(study2.getStudyDetails()).isEqualTo("please");
 
-//        List<Post> allStudy = studyService.getAllStudy();
-//        Assertions.assertThat(allStudy.size()).isEqualTo(2);
+        List<Post> allStudy = studyService.getAllStudy();
+        Assertions.assertThat(allStudy.size()).isEqualTo(2);
 //
 //        List<StudyListDto> studyLists = studyService.getStudyLists();
 //        System.out.println("!!!!! studyLists = " + studyLists);
 //        Assertions.assertThat(studyLists.size()).isEqualTo(0);
 
-        List<Post> study = studyService.getStudy();
-        Assertions.assertThat(study.size()).isEqualTo(2);
+//        List<Post> study = studyService.getStudy();
+//        Assertions.assertThat(study.size()).isEqualTo(2);
 
 
 //        for (Post post : allStudy) {

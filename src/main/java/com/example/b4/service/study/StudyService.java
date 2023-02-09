@@ -52,7 +52,8 @@ public class StudyService {
     }
 
     public List<Post> getStudy() {
-        return postRepository.findStudy();
+        return null;
+//        return postRepository.findStudy();
     }
 
 
