@@ -25,7 +25,7 @@ public class StudyServiceTest {
     void createStudy() {
 
         StudyDetailDto study = studyService.createStudy(new StudyDetailReq("국어", "hello", "hihihihihi", "heep:f;w"));
-
+        System.out.println("study = " + study);
         Assertions.assertThat(study.getStudyDetails()).isEqualTo("hihihihihi");
     }
 }

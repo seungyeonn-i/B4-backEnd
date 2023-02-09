@@ -2,6 +2,7 @@ package com.example.b4.service.study;
 
 import com.example.b4.dto.study.StudyDetailDto;
 import com.example.b4.dto.study.StudyDetailReq;
+import com.example.b4.entity.post.Post;
 import com.example.b4.entity.post.Study;
 import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
@@ -21,18 +22,21 @@ public class StudyService {
 //        user.setUserId(1L);
 //        user.setUserNickname("user1");
 
-        Study buildStudy = Study.builder()
-                .category(req.getCategory())
+        Post buildPost = Post.builder()
                 .bookmark(Boolean.TRUE)
                 .user(null)
-                .attachedFile(req.getStudyAttachedFile())
                 .title(req.getTitle())
+                .attachedFile(req.getStudyAttachedFile())
+                .category(req.getCategory())
+                .build();
+        Post savedPost = postRepository.save(buildPost);
+
+        Study buildStudy = Study.builder()
+                .post(savedPost)
                 .studyDetails(req.getStudyDetails())
                 .build();
-
-        Study save = studyRepository.save(buildStudy);
-        return null;
-//        return new StudyDetailDto(save.getCategory(), save.getTitle(), save.getUser().getUserNickname(), save.getStudyDetails(), save.getAttachedFile());
+        Study savedStudy = studyRepository.save(buildStudy);
+        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), "user1", savedStudy.getStudyDetails(), savedPost.getAttachedFile());
 
     }
 
