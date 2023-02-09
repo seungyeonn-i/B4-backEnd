@@ -1,9 +1,6 @@
 package com.example.b4.dto.play;
 
-import com.example.b4.entity.post.play.PlayCategory;
 import lombok.Data;
-
-import java.sql.Date;
 
 @Data
 public class PlayDetailReq {

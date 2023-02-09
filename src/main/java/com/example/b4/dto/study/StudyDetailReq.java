@@ -1,5 +1,6 @@
 package com.example.b4.dto.study;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -8,4 +9,12 @@ public class StudyDetailReq {
     private String title;
     private String studyDetails;
     private String studyAttachedFile;
+
+    @Builder
+    public StudyDetailReq(String category, String title, String studyDetails, String studyAttachedFile) {
+        this.category = category;
+        this.title = title;
+        this.studyDetails = studyDetails;
+        this.studyAttachedFile = studyAttachedFile;
+    }
 }
