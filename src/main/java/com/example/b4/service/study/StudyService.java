@@ -48,12 +48,15 @@ public class StudyService {
     }
 
     public List<StudyListDto> getStudyLists(){
-        return postRepository.findStudyListDto();
+        return studyRepository.findStudyListDto();
     }
 
-    public List<Post> getStudy() {
-        return null;
-//        return postRepository.findStudy();
+    public List<StudyListDto> getStudyListsByCategory() {
+        return studyRepository.findStudyCategoryListDto("korean");
+    }
+
+    public List<StudyDetailDto> getStudyDetail() {
+        return studyRepository.findStudyDetailDto();
     }
 
 

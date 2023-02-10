@@ -35,32 +35,44 @@ public class StudyServiceTest {
 
     @Test
     void findAllStudy() {
-        StudyDetailDto study1 = studyService.createStudy(new StudyDetailReq("국어", "hello", "hihihihihi", "heep:f;w"));
+        StudyDetailDto study1 = studyService.createStudy(new StudyDetailReq("korean", "hello", "hihihihihi", "heep:f;w"));
 //        System.out.println("study = " + study1);
 //        Assertions.assertThat(study1.getStudyDetails()).isEqualTo("hihihihihi");
 
-        StudyDetailDto study2 = studyService.createStudy(new StudyDetailReq("수학", "hello", "hihihihihi", "heep:f;w"));
+        StudyDetailDto study2 = studyService.createStudy(new StudyDetailReq("math", "hello", "hihihihihi", "heep:f;w"));
 //        System.out.println("study = " + study2);
 //        Assertions.assertThat(study2.getStudyDetails()).isEqualTo("please");
 
+        // TODO : return post list
         List<Post> allStudy = studyService.getAllStudy();
+        for (Post post : allStudy) {
+            System.out.println("!!!!!"+allStudy.size());
+        }
         Assertions.assertThat(allStudy.size()).isEqualTo(2);
 
+        // TODO : return studyListDto
         List<StudyListDto> studyLists = studyService.getStudyLists();
         for (StudyListDto studyList : studyLists) {
             System.out.println("!!!!!studyList = " + studyList.toString());
         }
         Assertions.assertThat(studyLists.size()).isEqualTo(2);
 
-//        List<Post> study = studyService.getStudy();
-//        Assertions.assertThat(study.size()).isEqualTo(2);
+        // TODO : return StudyDetailDto
+        List<StudyDetailDto> studyDetail = studyService.getStudyDetail();
+        for (StudyDetailDto studyDetailDto : studyDetail) {
+            System.out.println("!!!! studyDetailDto.toString() = " + studyDetailDto.toString());
+        }
+        Assertions.assertThat(studyLists.size()).isEqualTo(2);
 
-
-//        for (Post post : allStudy) {
-//            System.out.println("!!!!! post = " + post.toString());
-//        }
-//        Assertions.assertThat(allStudy.size()).isEqualTo(2);
+        // TODO : return ByCategoryStudyListDto (o)
+        List<StudyListDto> studyByCategoryLists = studyService.getStudyListsByCategory();
+        for (StudyListDto studyByCategoryList : studyByCategoryLists) {
+            System.out.println("!!!! studyByCategoryLists.toString() = " + studyByCategoryList.toString());
+        }
+        Assertions.assertThat(studyByCategoryLists.size()).isEqualTo(1); // 1
 
 
     }
+
+
 }
