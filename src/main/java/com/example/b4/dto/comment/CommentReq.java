@@ -6,4 +6,9 @@ import lombok.Data;
 public class CommentReq {
     private String commentDetail;
     private String commentAttachedFile;
+
+    public CommentReq(String commentDetail, String commentAttachedFile) {
+        this.commentDetail = commentDetail;
+        this.commentAttachedFile = commentAttachedFile;
+    }
 }
