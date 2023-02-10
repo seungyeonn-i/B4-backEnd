@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyListDto {
@@ -20,6 +21,14 @@ public class StudyListDto {
     private Long comments;
 
     private LocalDateTime createdDate;
+
+    public StudyListDto(Long postId, String title, String category, String attachedFile, boolean bookmark) {
+        this.postId = postId;
+        this.title = title;
+        this.category = category;
+        this.attachedFile = attachedFile;
+        this.bookmark = bookmark;
+    }
 
     public StudyListDto(Long postId, String user, String title, String category, String attachedFile, boolean bookmark) {
         this.postId = postId;

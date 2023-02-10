@@ -11,8 +11,8 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark)" +
-            "from Post p where p.postId=1")
+            "p.postId,p.title,p.category,p.attachedFile,p.bookmark)" +
+            "from Post p , Study s where p.postId=s.post.postId")
     List<StudyListDto> findStudyListDto();
 
 //    @Query("select p from Post p where p=Study.post")

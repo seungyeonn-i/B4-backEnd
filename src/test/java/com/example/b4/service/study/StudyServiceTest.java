@@ -45,10 +45,12 @@ public class StudyServiceTest {
 
         List<Post> allStudy = studyService.getAllStudy();
         Assertions.assertThat(allStudy.size()).isEqualTo(2);
-//
-//        List<StudyListDto> studyLists = studyService.getStudyLists();
-//        System.out.println("!!!!! studyLists = " + studyLists);
-//        Assertions.assertThat(studyLists.size()).isEqualTo(0);
+
+        List<StudyListDto> studyLists = studyService.getStudyLists();
+        for (StudyListDto studyList : studyLists) {
+            System.out.println("!!!!!studyList = " + studyList.toString());
+        }
+        Assertions.assertThat(studyLists.size()).isEqualTo(2);
 
 //        List<Post> study = studyService.getStudy();
 //        Assertions.assertThat(study.size()).isEqualTo(2);
