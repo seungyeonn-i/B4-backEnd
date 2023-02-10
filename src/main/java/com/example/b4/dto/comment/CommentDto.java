@@ -1,21 +1,22 @@
 package com.example.b4.dto.comment;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Data
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class CommentDto {
     private String user;
     private String commentDetail;
     private String commentAttachedFile;
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     private int like;
     private int unlike;
+
 
 }
