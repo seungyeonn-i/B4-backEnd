@@ -11,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +54,22 @@ class CommentServiceTest {
         }
 
         Assertions.assertThat(commentDtos.size()).isEqualTo(2);
+        ResponseEntity<List<CommentDto>> listResponseEntity = new ResponseEntity<>(commentDtos, HttpStatus.ACCEPTED);
+        System.out.println("listResponseEntity = " + listResponseEntity);
+
+    }
+
+    @Test
+    void response() {
+        StudyDetailDto study1 = studyService.createStudy(new StudyDetailReq("korean", "hello", "hihihihihi", "heep:f;w"));
+
+        CommentDto comment1 = commentService.createComment(1L, new CommentReq("hihihihihi", "lijlji"));
+        CommentDto comment2 = commentService.createComment(1L, new CommentReq("hihihihihi", "lijlji"));
+
+        List<CommentDto> commentDtos = commentService.readComments(1L);
+
+        ResponseEntity<List<CommentDto>> listResponseEntity = new ResponseEntity<>(commentDtos, HttpStatus.ACCEPTED);
+        System.out.println("listResponseEntity = " + listResponseEntity);
     }
 
 }
