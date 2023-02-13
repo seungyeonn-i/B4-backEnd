@@ -22,15 +22,15 @@ public class Likes extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "post_id")
-    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "comment_id")
+    private Comment comment;
 
-    private LikesStatus status;
+    private String likesStatus;
 
     @Builder
-    public Likes(User user, Post post, LikesStatus status) {
+    public Likes(User user, Comment comment, String likesStatus) {
         this.user = user;
-        this.post = post;
-        this.status = status;
+        this.comment = comment;
+        this.likesStatus = likesStatus;
     }
 }
