@@ -4,6 +4,11 @@ import lombok.Data;
 
 @Data
 public class LikeDto {
-    private int commentId;
+    private Long commentId;
     private String status;
+
+    public LikeDto(Long commentId, String status) {
+        this.commentId = commentId;
+        this.status = status;
+    }
 }

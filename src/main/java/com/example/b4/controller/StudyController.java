@@ -2,12 +2,15 @@ package com.example.b4.controller;
 
 import com.example.b4.dto.comment.CommentDto;
 import com.example.b4.dto.comment.CommentReq;
+import com.example.b4.dto.comment.like.LikeDto;
+import com.example.b4.dto.comment.like.LikeReq;
 import com.example.b4.dto.study.StudyDetailDto;
 import com.example.b4.dto.study.StudyDetailReq;
 import com.example.b4.dto.study.StudyListDto;
 import com.example.b4.dto.study.StudyListRes;
 import com.example.b4.entity.post.StudyCategory;
 import com.example.b4.service.comment.CommentService;
+import com.example.b4.service.comment.LikesService;
 import com.example.b4.service.study.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,7 @@ public class StudyController {
 
     private final StudyService studyService;
     private final CommentService commentService;
+    private final LikesService likesService;
 
     @GetMapping
     public ResponseEntity<StudyListRes> getStudyList() {
@@ -105,9 +109,11 @@ public class StudyController {
 
     }
 
+    @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/like")
-    public void postLike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId) {
-
+    public ResponseEntity<LikeDto> postLike(@PathVariable("id") Long id, @PathVariable("comment-id")  Long commentId, @RequestBody LikeReq req) {
+        System.out.println("req = " + req.getStatus());
+        return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
     }
     @PostMapping("/{id}/comment/{comment-id}/unlike")
     public void postUnlike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId) {
