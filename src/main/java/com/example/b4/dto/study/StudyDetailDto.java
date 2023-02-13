@@ -38,4 +38,11 @@ public class StudyDetailDto {
         this.studyDetails = studyDetails;
         this.studyAttachedFile = studyAttachedFile;
     }
+    @Builder
+    public StudyDetailDto(String category, String title, String studyDetails, String studyAttachedFile) {
+        this.category = category;
+        this.title = title;
+        this.studyDetails = studyDetails;
+        this.studyAttachedFile = studyAttachedFile;
+    }
 }

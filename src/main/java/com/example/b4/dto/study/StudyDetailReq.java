@@ -10,7 +10,9 @@ public class StudyDetailReq {
     private String studyDetails;
     private String studyAttachedFile;
 
-    @Builder
+    public StudyDetailReq() {
+    }
+
     public StudyDetailReq(String category, String title, String studyDetails, String studyAttachedFile) {
         this.category = category;
         this.title = title;

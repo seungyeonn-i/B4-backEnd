@@ -65,13 +65,17 @@ public class StudyServiceTest {
         Assertions.assertThat(studyLists.size()).isEqualTo(2);
 
         // TODO : return ByCategoryStudyListDto (o)
-        List<StudyListDto> studyByCategoryLists = studyService.getStudyListsByCategory();
+        List<StudyListDto> studyByCategoryLists = studyService.getStudyListsByCategory("korean");
         for (StudyListDto studyByCategoryList : studyByCategoryLists) {
             System.out.println("!!!! studyByCategoryLists.toString() = " + studyByCategoryList.toString());
         }
         Assertions.assertThat(studyByCategoryLists.size()).isEqualTo(1); // 1
 
-
+        // TODO : return StudyDetailDto By PostId
+        List<StudyDetailDto> studyDetail2 = studyService.getStudyDetailByPostId(1L);
+        for (StudyDetailDto studyDetailDto : studyDetail2) {
+            System.out.println("????? studyDetailDto.toString() = " + studyDetailDto.toString());
+        }
     }
 
 

@@ -7,11 +7,14 @@ import com.example.b4.entity.post.Post;
 import com.example.b4.entity.post.Study;
 import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
+import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.study.StudyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,44 +22,55 @@ public class StudyService {
 
     private final PostRepository postRepository;
     private final StudyRepository studyRepository;
+    private final UserRepository userRepository;
 
     public StudyDetailDto createStudy(StudyDetailReq req) {
-//        User user = new User();
-//        user.setUserId(1L);
-//        user.setUserNickname("user1");
+//            user.setUserId(1L);
+//            user.setUserNickname("user1");
+        User user = userRepository.findById(1L).get();
+
 
         Post newPost = Post.builder()
-                .bookmark(Boolean.TRUE)
-                .user(null)
-                .title(req.getTitle())
-                .attachedFile(req.getStudyAttachedFile())
-                .category(req.getCategory())
-                .build();
-        Post savedPost = postRepository.save(newPost);
+                    .bookmark(Boolean.TRUE)
+                    .user(user)
+                    .title(req.getTitle())
+                    .attachedFile(req.getStudyAttachedFile())
+                    .category(req.getCategory())
+                    .build();
+            Post savedPost = postRepository.save(newPost);
 
-        Study newStudy = Study.builder()
-                .post(savedPost)
-                .studyDetails(req.getStudyDetails())
-                .build();
-        Study savedStudy = studyRepository.save(newStudy);
-        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), "user1", savedStudy.getStudyDetails(), savedPost.getAttachedFile());
+            Study newStudy = Study.builder()
+                    .post(savedPost)
+                    .studyDetails(req.getStudyDetails())
+                    .build();
+            Study savedStudy = studyRepository.save(newStudy);
+            return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedStudy.getStudyDetails(), savedPost.getAttachedFile());
+
 
     }
 
+    // return All Post
     public List<Post> getAllStudy() {
         return postRepository.findAll();
     }
 
+    // return All StudyListDto
     public List<StudyListDto> getStudyLists(){
         return studyRepository.findStudyListDto();
     }
 
-    public List<StudyListDto> getStudyListsByCategory() {
-        return studyRepository.findStudyCategoryListDto("korean");
+    // return category StudyListDto
+    public List<StudyListDto> getStudyListsByCategory(String category) {
+        return studyRepository.findStudyCategoryListDto(category);
     }
 
+    // return StudyDetailDto
     public List<StudyDetailDto> getStudyDetail() {
         return studyRepository.findStudyDetailDto();
+    }
+    // return
+    public List<StudyDetailDto> getStudyDetailByPostId(Long postId) {
+        return studyRepository.findByPostIdDetailDto(postId);
     }
 
 
