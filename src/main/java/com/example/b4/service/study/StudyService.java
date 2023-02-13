@@ -10,6 +10,7 @@ import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;
 import com.example.b4.repository.study.StudyRepository;
+import com.example.b4.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class StudyService {
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final CommentService commentService;
 
     public StudyDetailDto createStudy(StudyDetailReq req) {
 //            user.setUserId(1L);
@@ -73,7 +75,7 @@ public class StudyService {
     public StudyDetailDto getStudyDetailByPostId(Long postId) {
 
         StudyDetailDto getStudyDetail = studyRepository.findByPostIdDetailDto(postId);
-        getStudyDetail.setComments(commentRepository.findAllByPostId(postId));
+        getStudyDetail.setComments(commentService.readComments(postId));
         return getStudyDetail;
     }
 

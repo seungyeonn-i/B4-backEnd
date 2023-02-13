@@ -6,6 +6,7 @@ import com.example.b4.dto.study.StudyDetailDto;
 import com.example.b4.dto.study.StudyDetailReq;
 import com.example.b4.dto.study.StudyListDto;
 import com.example.b4.dto.study.StudyListRes;
+import com.example.b4.entity.post.StudyCategory;
 import com.example.b4.service.comment.CommentService;
 import com.example.b4.service.study.StudyService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +34,20 @@ public class StudyController {
 
         StudyListRes studyListRes = new StudyListRes();
         studyListRes.setStudies(studyService.getStudyLists());
-//        studyListRes.setCategories(); // enum to list
+
+
+        // TODO : Study-Category to List -> clear
+        // TODO : Study Count(comments) -> clear
+
+        // Enum to List
+        List<String> newString = Stream.of(StudyCategory.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+
+        studyListRes.setCategories(newString);
+
+        Long aLong = commentService.sumComments(3L);
+        System.out.println("aLong = " + aLong);
         return new ResponseEntity<>(studyListRes,HttpStatus.ACCEPTED);
     }
 

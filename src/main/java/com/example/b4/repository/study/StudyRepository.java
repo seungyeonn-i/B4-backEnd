@@ -10,24 +10,30 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface StudyRepository extends JpaRepository<Study, Long> {
+//    @Query("select new com.example.b4.dto.study.StudyListDto(" +
+//            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate)" +
+//            "from Study s join s.post p where p.postId=s.post.postId")
+//    List<StudyListDto> findStudyListDto();
+
+
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate)" +
-            "from Post p , Study s where p.postId=s.post.postId")
+            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
+            "from Study s join s.post p where p.postId=s.post.postId ")
     List<StudyListDto> findStudyListDto();
 
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "p.postId,p.title,p.category,p.attachedFile,p.bookmark)" +
-            "from Post p , Study s where p.category = :category and p.postId = s.post.postId  ")
+            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
+            "from Study s join s.post p where p.category = :category and p.postId = s.post.postId  ")
     List<StudyListDto> findStudyCategoryListDto(@Param("category") String category);
 
     @Query("select new com.example.b4.dto.study.StudyDetailDto(" +
             "p.category,p.title,p.category,s.studyDetails,p.attachedFile,p.createdDate)" +
-            "from Post p, Study s where p.postId=s.post.postId")
+            "from Study s join s.post p where p.postId=s.post.postId")
     List<StudyDetailDto> findStudyDetailDto();
 
     @Query("select new com.example.b4.dto.study.StudyDetailDto(" +
             "p.category,p.title,p.category,s.studyDetails,p.attachedFile,p.createdDate)" +
-            "from Post p, Study s where p.postId=:postId and p.postId=s.post.postId")
+            "from Study s join s.post p where p.postId=:postId and p.postId=s.post.postId")
     StudyDetailDto findByPostIdDetailDto(@Param("postId")Long postId);
 
 

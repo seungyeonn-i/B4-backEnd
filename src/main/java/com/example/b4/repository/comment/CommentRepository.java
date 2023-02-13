@@ -12,8 +12,12 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query("select new com.example.b4.dto.comment.CommentDto(c.commentDetail,c.commentDetail, c.commentAttachedFile, c.createdDate,1,1) " +
-            "from Comment c, Post p where c.post.postId = :postId")
+            "from Comment c join c.post p where c.post.postId = :postId")
     public List<CommentDto> findAllByPostId(@Param("postId") Long postId);
+
+    @Query("select count (c) " +
+            "from Comment c join c.post p where c.post.postId = :postId")
+    public Long countCommentByPostId(@Param("postId") Long postId);
 
 
 }

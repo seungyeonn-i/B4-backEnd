@@ -26,6 +26,7 @@ public class CommentService {
     public CommentDto createComment(Long postId,CommentReq req){
 
 
+        // TODO : 1번에 15개 생김
         System.out.println("postId = " + postId);
         Post findPost = postRepository.findById(postId).get();
 
@@ -49,4 +50,9 @@ public class CommentService {
     public List<CommentDto> readComments(Long postId) {
         return commentRepository.findAllByPostId(postId);
     }
+
+    public Long sumComments(Long postId) {
+        return commentRepository.countCommentByPostId(postId);
+    }
+
 }

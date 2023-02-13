@@ -18,7 +18,7 @@ public class StudyListDto {
     private String attachedFile;
     private boolean bookmark;
 
-    private Long comments;
+    private int comments;
 
     private LocalDateTime createdDate;
 
@@ -40,13 +40,14 @@ public class StudyListDto {
         this.createdDate = createdDate;
     }
 
-    public StudyListDto(Long postId, String user, String title, String category, String attachedFile, boolean bookmark, Long comments) {
+    public StudyListDto(Long postId, String user, String title, String category, String attachedFile, boolean bookmark,LocalDateTime createdDate,int comments) {
         this.postId = postId;
         this.user = user;
         this.title = title;
         this.category = category;
         this.attachedFile = attachedFile;
         this.bookmark = bookmark;
+        this.createdDate = createdDate;
         this.comments = comments;
     }
 }
