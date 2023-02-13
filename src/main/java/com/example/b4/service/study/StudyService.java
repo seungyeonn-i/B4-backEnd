@@ -44,7 +44,7 @@ public class StudyService {
                     .studyDetails(req.getStudyDetails())
                     .build();
             Study savedStudy = studyRepository.save(newStudy);
-            return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedStudy.getStudyDetails(), savedPost.getAttachedFile());
+            return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
 
 
     }
