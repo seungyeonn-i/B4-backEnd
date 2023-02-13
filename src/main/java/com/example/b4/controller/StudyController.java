@@ -1,10 +1,12 @@
 package com.example.b4.controller;
 
+import com.example.b4.dto.comment.CommentDto;
 import com.example.b4.dto.comment.CommentReq;
 import com.example.b4.dto.study.StudyDetailDto;
 import com.example.b4.dto.study.StudyDetailReq;
 import com.example.b4.dto.study.StudyListDto;
 import com.example.b4.dto.study.StudyListRes;
+import com.example.b4.service.comment.CommentService;
 import com.example.b4.service.study.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +23,19 @@ import java.util.List;
 public class StudyController {
 
     private final StudyService studyService;
+    private final CommentService commentService;
 
     @GetMapping
     public ResponseEntity<StudyListRes> getStudyList() {
 
         StudyListRes studyListRes = new StudyListRes();
         studyListRes.setStudies(studyService.getStudyLists());
-//        studyListRes.setCategories("");
+//        studyListRes.setCategories(); // enum to list
         return new ResponseEntity<>(studyListRes,HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/categories/{category}")
-    public ResponseEntity<StudyListRes> getStudyListByCategory(@PathVariable String category) {
+    public ResponseEntity<StudyListRes> getStudyListByCategory(@PathVariable("category") String category) {
         StudyListRes studyListRes = new StudyListRes();
 
         List newCategory = new ArrayList();
@@ -69,8 +72,11 @@ public class StudyController {
 
     }
 
+    @ResponseBody
     @PostMapping("/{id}/comment")
-    public void postComment(@PathVariable("id")Long id, CommentReq commentReq) {
+    public ResponseEntity<CommentDto> postComment( @PathVariable("id")Long id, @RequestBody CommentReq commentReq) {
+        System.out.println("!!!! commentReq.getCommentDetail() = " + commentReq.getCommentDetail());
+        return new ResponseEntity<>(commentService.createComment(id, commentReq),HttpStatus.ACCEPTED);
 
     }
     @PutMapping("/{id}/comment")

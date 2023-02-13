@@ -27,8 +27,8 @@ public class StudyService {
     public StudyDetailDto createStudy(StudyDetailReq req) {
 //            user.setUserId(1L);
 //            user.setUserNickname("user1");
+        // TODO : JWT로 교체
         User user = userRepository.findById(1L).get();
-
 
         Post newPost = Post.builder()
                     .bookmark(Boolean.TRUE)
@@ -37,15 +37,14 @@ public class StudyService {
                     .attachedFile(req.getStudyAttachedFile())
                     .category(req.getCategory())
                     .build();
-            Post savedPost = postRepository.save(newPost);
+        Post savedPost = postRepository.save(newPost);
 
-            Study newStudy = Study.builder()
-                    .post(savedPost)
-                    .studyDetails(req.getStudyDetails())
-                    .build();
-            Study savedStudy = studyRepository.save(newStudy);
-            return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
-
+        Study newStudy = Study.builder()
+                .post(savedPost)
+                .studyDetails(req.getStudyDetails())
+                .build();
+        Study savedStudy = studyRepository.save(newStudy);
+        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
 
     }
 

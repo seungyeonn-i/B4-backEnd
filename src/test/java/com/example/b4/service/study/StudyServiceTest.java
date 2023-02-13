@@ -36,8 +36,6 @@ public class StudyServiceTest {
     @Test
     void findAllStudy() {
         StudyDetailDto study1 = studyService.createStudy(new StudyDetailReq("korean", "hello", "hihihihihi", "heep:f;w"));
-//        System.out.println("study = " + study1);
-//        Assertions.assertThat(study1.getStudyDetails()).isEqualTo("hihihihihi");
 
         StudyDetailDto study2 = studyService.createStudy(new StudyDetailReq("math", "hello", "hihihihihi", "heep:f;w"));
 //        System.out.println("study = " + study2);

@@ -26,28 +26,23 @@ public class CommentService {
     public CommentDto createComment(Long postId,CommentReq req){
 
 
-        Optional<Post> optional = postRepository.findById(postId);
-        Post findPost = null;
-        if(optional.isPresent()){
-            findPost =  optional.get();
+        System.out.println("postId = " + postId);
+        Post findPost = postRepository.findById(postId).get();
 
             System.out.println("findPost = " + findPost);
-    //        Optional<User> findUser = userRepository.findById(1L);
-    //        UserRepository.findById(req.user)
+            User findUser = userRepository.findById(1L).get();
+        System.out.println("req.getCommentDetail() = " + req.getCommentDetail());
             Comment newComment = Comment.builder()
-                    .user(null)
+                    .user(findUser)
                     .post(findPost)
                     .commentDetail(req.getCommentDetail())
                     .commentAttachedFile(req.getCommentAttachedFile())
                     .build();
-            Comment save = commentRepository.save(newComment);
-            return new CommentDto("user1",save.getCommentDetail(),save.getCommentAttachedFile(), LocalDateTime.now(),1,2);
+        Comment save = commentRepository.save(newComment);
 
-        } else{
-            // TODO : postId가 null 일 때
-//            throw new Exception();
-        }
-        return null;
+        return new CommentDto(save.getUser().getUserNickname(),save.getCommentDetail(),save.getCommentAttachedFile(),save.getCreatedDate(),1,2);
+        // TODO : 1. postId가 null 일 때
+        // TODO : 2. optional 처리
 
     }
 
