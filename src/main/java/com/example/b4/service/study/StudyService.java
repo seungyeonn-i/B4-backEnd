@@ -8,6 +8,7 @@ import com.example.b4.entity.post.Study;
 import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
+import com.example.b4.repository.comment.CommentRepository;
 import com.example.b4.repository.study.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class StudyService {
     private final PostRepository postRepository;
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     public StudyDetailDto createStudy(StudyDetailReq req) {
 //            user.setUserId(1L);
@@ -31,12 +33,12 @@ public class StudyService {
         User user = userRepository.findById(1L).get();
 
         Post newPost = Post.builder()
-                    .bookmark(Boolean.TRUE)
-                    .user(user)
-                    .title(req.getTitle())
-                    .attachedFile(req.getStudyAttachedFile())
-                    .category(req.getCategory())
-                    .build();
+                .bookmark(Boolean.TRUE)
+                .user(user)
+                .title(req.getTitle())
+                .attachedFile(req.getStudyAttachedFile())
+                .category(req.getCategory())
+                .build();
         Post savedPost = postRepository.save(newPost);
 
         Study newStudy = Study.builder()
@@ -68,8 +70,11 @@ public class StudyService {
         return studyRepository.findStudyDetailDto();
     }
     // return
-    public List<StudyDetailDto> getStudyDetailByPostId(Long postId) {
-        return studyRepository.findByPostIdDetailDto(postId);
+    public StudyDetailDto getStudyDetailByPostId(Long postId) {
+
+        StudyDetailDto getStudyDetail = studyRepository.findByPostIdDetailDto(postId);
+        getStudyDetail.setComments(commentRepository.findAllByPostId(postId));
+        return getStudyDetail;
     }
 
 

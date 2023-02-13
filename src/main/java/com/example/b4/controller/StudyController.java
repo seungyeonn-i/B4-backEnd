@@ -49,7 +49,7 @@ public class StudyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StudyDetailDto> getStudyDetail(@PathVariable Long id) {
-        return new ResponseEntity<>(studyService.getStudyDetailByPostId(id).get(0),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(studyService.getStudyDetailByPostId(id),HttpStatus.ACCEPTED);
     }
 
     //    @PostMapping("/{id}")
