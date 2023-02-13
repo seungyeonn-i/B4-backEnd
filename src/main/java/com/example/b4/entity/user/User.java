@@ -6,9 +6,13 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
+@Getter
+@ToString
+@SuperBuilder
+@NoArgsConstructor(access = PROTECTED)
 @EqualsAndHashCode(callSuper=false)
 @Table(name="Member")
 public class User extends BaseTimeEntity {
@@ -24,4 +28,11 @@ public class User extends BaseTimeEntity {
 
     private String loginId;
     private String loginPw;
+
+    public User(String userNickname, UserRole userRole, String loginId, String loginPw) {
+        this.userNickname = userNickname;
+        this.userRole = userRole;
+        this.loginId = loginId;
+        this.loginPw = loginPw;
+    }
 }
