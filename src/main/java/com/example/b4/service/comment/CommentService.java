@@ -60,6 +60,20 @@ public class CommentService {
         return allByPostId;
     }
 
+    public CommentDto updateComment(Long postId, Long commentId, CommentReq commentReq) {
+        Comment updateComment = commentRepository.findById(commentId).get();
+
+        updateComment.updateCommentDetail(commentReq.getCommentDetail());
+        updateComment.updateCommentAttachedFile(commentReq.getCommentAttachedFile());
+        Comment savedComment = commentRepository.save(updateComment);
+        return new CommentDto(savedComment.getCommentId(), savedComment.getUser().getUserNickname(), savedComment.getCommentDetail(), savedComment.getCommentAttachedFile(), savedComment.getCreatedDate());
+    }
+
+    public void deleteComment(Long commentId) {
+        Comment deleteComment = commentRepository.findById(commentId).get();
+        commentRepository.delete(deleteComment);
+    }
+
     public Long sumComments(Long postId) {
         return commentRepository.countCommentByPostId(postId);
     }

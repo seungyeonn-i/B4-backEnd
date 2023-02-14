@@ -29,6 +29,14 @@ public class Comment extends BaseEntity {
     private String commentDetail;
     private String commentAttachedFile;
 
+    public void updateCommentDetail(String commentDetail) {
+        this.commentDetail = commentDetail;
+    }
+
+    public void updateCommentAttachedFile(String commentAttachedFile) {
+        this.commentAttachedFile = commentAttachedFile;
+    }
+
     @Builder
     public Comment(Post post, User user, String commentDetail, String commentAttachedFile) {
         this.post = post;

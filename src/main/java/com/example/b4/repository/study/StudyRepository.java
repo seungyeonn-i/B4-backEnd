@@ -2,6 +2,7 @@ package com.example.b4.repository.study;
 
 import com.example.b4.dto.study.StudyDetailDto;
 import com.example.b4.dto.study.StudyListDto;
+import com.example.b4.entity.post.Post;
 import com.example.b4.entity.post.Study;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -37,4 +38,6 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     StudyDetailDto findByPostIdDetailDto(@Param("postId")Long postId);
 
 
+    @Query("select p from Study s join s.post p where s.studyId =:studyId")
+    Post findPostByStudy(@Param("studyId")Long studyId);
 }

@@ -40,18 +40,17 @@ public class StudyController {
         studyListRes.setStudies(studyService.getStudyLists());
 
 
-        // TODO : Study-Category to List -> clear
         // TODO : Study Count(comments) -> clear
 
-        // Enum to List
+        // TODO : Study-Category to List
         List<String> newString = Stream.of(StudyCategory.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());
 
         studyListRes.setCategories(newString);
 
-        Long aLong = commentService.sumComments(3L);
-        System.out.println("aLong = " + aLong);
+//        Long aLong = commentService.sumComments(3L);
+//        System.out.println("aLong = " + aLong);
         return new ResponseEntity<>(studyListRes,HttpStatus.ACCEPTED);
     }
 
@@ -73,24 +72,25 @@ public class StudyController {
         return new ResponseEntity<>(studyService.getStudyDetailByPostId(id),HttpStatus.ACCEPTED);
     }
 
-    //    @PostMapping("/{id}")
-//    public ResponseEntity<StudyDetailDto> postStudyDetail(@PathVariable Long id, StudyDetailReq studyDetailReq) {
-//        return new ResponseEntity<>(studyService.createStudy(studyDetailReq),HttpStatus.ACCEPTED);
-//    }
     @ResponseBody
     @PostMapping("/new")
     public ResponseEntity<StudyDetailDto> postStudyDetail(@RequestBody StudyDetailReq studyDetailReq) {
-        StudyDetailDto study = studyService.createStudy(studyDetailReq);
-        System.out.println("study = " + study);
+//        StudyDetailDto study = studyService.createStudy(studyDetailReq);
+//        System.out.println("study = " + study);
         return new ResponseEntity<>(studyService.createStudy(studyDetailReq), HttpStatus.ACCEPTED);
     }
+    @ResponseBody
     @PutMapping("/{id}")
-    public void putStudyDetail(@PathVariable Long id) {
+    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable Long id, @RequestBody StudyDetailReq studyDetailReq) {
+        StudyDetailDto studyDetailDto = studyService.updateStudy(id, studyDetailReq);
+        return new ResponseEntity<>(studyDetailDto, HttpStatus.ACCEPTED);
+//        updateStudy(Long studyId,StudyDetailReq req)
 
     }
     @DeleteMapping("/{id}")
-    public void deleteStudyDetail(@PathVariable Long id) {
-
+    public ResponseEntity deleteStudyDetail(@PathVariable Long id) {
+        studyService.deleteStudy(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @ResponseBody
@@ -100,13 +100,15 @@ public class StudyController {
         return new ResponseEntity<>(commentService.createComment(id, commentReq),HttpStatus.ACCEPTED);
 
     }
-    @PutMapping("/{id}/comment")
-    public void putComment(@PathVariable("id")Long id, CommentReq commentReq) {
-
+    @ResponseBody
+    @PutMapping("/{id}/comment/{comment-id}")
+    public ResponseEntity<CommentDto> putComment(@PathVariable("id")Long id, @PathVariable("comment-id") Long commentId,@RequestBody CommentReq commentReq) {
+        return new ResponseEntity<>(commentService.updateComment(id, commentId, commentReq),HttpStatus.ACCEPTED);
     }
-    @DeleteMapping("/{id}/comment")
-    public void deleteComment(@PathVariable("id")Long id, CommentReq commentReq) {
 
+    @DeleteMapping("/{id}/comment/{comment-id}")
+    public void deleteComment(@PathVariable("id") Long id,@PathVariable("comment-id")Long commentId) {
+        commentService.deleteComment(commentId);
     }
     // TODO : postId,userId,commentId 구분. postId 필요 없지 않나
     Long userId = 1L;
@@ -128,12 +130,13 @@ public class StudyController {
 
     }
 
+    /*
     @ResponseBody
     @GetMapping("/comment/{comment-id}")
     public ResponseEntity<Long> test(@PathVariable("comment-id") Long commentId) {
         Long aLong = likesService.likeNum(commentId);
         return new ResponseEntity<>(aLong, HttpStatus.ACCEPTED);
-    }
+    }*/
 
 
 

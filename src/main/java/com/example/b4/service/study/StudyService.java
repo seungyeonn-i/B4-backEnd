@@ -15,8 +15,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+@Transactional
 
 @Service
 @RequiredArgsConstructor
@@ -41,14 +43,51 @@ public class StudyService {
                 .attachedFile(req.getStudyAttachedFile())
                 .category(req.getCategory())
                 .build();
-        Post savedPost = postRepository.save(newPost);
+//        Post savedPost = postRepository.save(newPost);
 
         Study newStudy = Study.builder()
-                .post(savedPost)
+                .post(newPost)
                 .studyDetails(req.getStudyDetails())
                 .build();
         Study savedStudy = studyRepository.save(newStudy);
+//        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
+        return new StudyDetailDto(savedStudy.getPost().getCategory(), savedStudy.getPost().getTitle(), savedStudy.getPost().getUser().getUserNickname(),savedStudy.getStudyDetails(), savedStudy.getPost().getAttachedFile(),savedStudy.getPost().getCreatedDate());
+
+    }
+
+    public StudyDetailDto getStudyDetailByPostId(Long postId) {
+
+        StudyDetailDto getStudyDetail = studyRepository.findByPostIdDetailDto(postId);
+        getStudyDetail.setComments(commentService.readComments(postId));
+        return getStudyDetail;
+    }
+
+    public StudyDetailDto updateStudy(Long studyId,StudyDetailReq req) {
+
+        User user = userRepository.findById(1L).get();
+
+        Optional<Study> optional = studyRepository.findById(studyId);
+
+        Study updateStudy = optional.get();
+        updateStudy.updateStudyDetails(req.getStudyDetails());
+        Study savedStudy = studyRepository.save(updateStudy);
+
+        Post updatePost = studyRepository.findPostByStudy(studyId);
+        updatePost.updateAttachedFile(req.getStudyAttachedFile());
+        updatePost.updateCategory(req.getCategory());
+        updatePost.updateTitle(req.getTitle());
+        Post savedPost = postRepository.save(updatePost);
+
+        //TODO : pleaseUpdate
+
         return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
+    }
+
+    public void deleteStudy(Long studyId) {
+        Study findStudy = studyRepository.findById(studyId).get();
+        Post findPost = postRepository.findById(findStudy.getPost().getPostId()).get();
+        postRepository.delete(findPost);
+        studyRepository.delete(findStudy);
 
     }
 
@@ -72,12 +111,7 @@ public class StudyService {
         return studyRepository.findStudyDetailDto();
     }
     // return
-    public StudyDetailDto getStudyDetailByPostId(Long postId) {
 
-        StudyDetailDto getStudyDetail = studyRepository.findByPostIdDetailDto(postId);
-        getStudyDetail.setComments(commentService.readComments(postId));
-        return getStudyDetail;
-    }
 
 
 

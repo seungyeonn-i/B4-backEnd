@@ -21,6 +21,10 @@ public class Study extends BaseEntity {
     private Post post;
     private String studyDetails;
 
+    public void updateStudyDetails(String studyDetails) {
+        this.studyDetails = studyDetails;
+    }
+
     public Study(Post post, String studyDetails) {
         this.post = post;
         this.studyDetails = studyDetails;

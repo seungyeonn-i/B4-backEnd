@@ -41,7 +41,23 @@ public class Post extends BaseTimeEntity {
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-//    @Builder
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateCategory(String category) {
+        this.category = category;
+    }
+
+    public void updateAttachedFile(String attachedFile) {
+        this.attachedFile = attachedFile;
+    }
+
+    public void updateBookmark(Boolean bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    //    @Builder
     public Post(User user, String title, String category, String attachedFile, Boolean bookmark) {
         this.user = user;
         this.title = title;
