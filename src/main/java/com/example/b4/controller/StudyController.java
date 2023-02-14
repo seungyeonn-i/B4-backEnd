@@ -108,20 +108,30 @@ public class StudyController {
     public void deleteComment(@PathVariable("id")Long id, CommentReq commentReq) {
 
     }
-
+    // TODO : postId,userId,commentId 구분. postId 필요 없지 않나
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/like")
     public ResponseEntity<LikeDto> postLike(@PathVariable("id") Long id, @PathVariable("comment-id")  Long commentId, @RequestBody LikeReq req) {
         System.out.println("req = " + req.getStatus());
         return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
     }
+    @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/unlike")
-    public void postUnlike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId) {
+    public ResponseEntity<LikeDto> postUnlike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId ,@RequestBody LikeReq req) {
+        return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
+    }
+    @ResponseBody
+    @PostMapping("/{id}/comment/{comment-id}/cancel")
+    public ResponseEntity<LikeDto> deleteLike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId,@RequestBody LikeReq req) {
+        return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
 
     }
-    @PostMapping("/{id}/comment/{comment-id}/cancel")
-    public void deleteLike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId) {
 
+    @ResponseBody
+    @GetMapping("/comment/{comment-id}")
+    public ResponseEntity<Long> test(@PathVariable("comment-id") Long commentId) {
+        Long aLong = likesService.likeNum(commentId);
+        return new ResponseEntity<>(aLong, HttpStatus.ACCEPTED);
     }
 
 

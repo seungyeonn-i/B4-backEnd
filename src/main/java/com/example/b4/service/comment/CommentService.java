@@ -9,6 +9,7 @@ import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;
+import com.example.b4.repository.comment.LikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class CommentService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final LikesRepository likesRepository;
 
     public CommentDto createComment(Long postId,CommentReq req){
 
@@ -41,18 +43,26 @@ public class CommentService {
                     .build();
         Comment save = commentRepository.save(newComment);
 
-        return new CommentDto(save.getUser().getUserNickname(),save.getCommentDetail(),save.getCommentAttachedFile(),save.getCreatedDate(),1,2);
+        return new CommentDto(save.getCommentId(),save.getUser().getUserNickname(),save.getCommentDetail(),save.getCommentAttachedFile(),save.getCreatedDate());
         // TODO : 1. postId가 null 일 때
         // TODO : 2. optional 처리
 
     }
 
     public List<CommentDto> readComments(Long postId) {
-        return commentRepository.findAllByPostId(postId);
+
+        List<CommentDto> allByPostId = commentRepository.findAllByPostId(postId);
+        for (CommentDto commentDto : allByPostId) {
+            commentDto.setLike(likesRepository.countLikes(commentDto.getCommentId(),"O"));
+            commentDto.setUnlike(likesRepository.countLikes(commentDto.getCommentId(),"X"));
+        }
+
+        return allByPostId;
     }
 
     public Long sumComments(Long postId) {
         return commentRepository.countCommentByPostId(postId);
     }
+
 
 }

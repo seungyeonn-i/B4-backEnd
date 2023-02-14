@@ -4,6 +4,7 @@ import com.example.b4.entity.BaseTimeEntity;
 import com.example.b4.entity.user.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Entity
 public class Likes extends BaseTimeEntity {
 
