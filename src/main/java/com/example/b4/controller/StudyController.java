@@ -109,21 +109,22 @@ public class StudyController {
 
     }
     // TODO : postId,userId,commentId 구분. postId 필요 없지 않나
+    Long userId = 1L;
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/like")
     public ResponseEntity<LikeDto> postLike(@PathVariable("id") Long id, @PathVariable("comment-id")  Long commentId, @RequestBody LikeReq req) {
         System.out.println("req = " + req.getStatus());
-        return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(likesService.like(id, commentId, req,userId), HttpStatus.ACCEPTED);
     }
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/unlike")
     public ResponseEntity<LikeDto> postUnlike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId ,@RequestBody LikeReq req) {
-        return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(likesService.like(id, commentId, req,userId), HttpStatus.ACCEPTED);
     }
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/cancel")
     public ResponseEntity<LikeDto> deleteLike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId,@RequestBody LikeReq req) {
-        return new ResponseEntity<>(likesService.like(id, commentId, req), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(likesService.like(id, commentId, req,userId), HttpStatus.ACCEPTED);
 
     }
 
