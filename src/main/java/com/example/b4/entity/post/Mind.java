@@ -20,7 +20,8 @@ public class Mind extends BaseEntity {
     private Post post;
 
     private String mindDetails;
-    private MindStatus status;
+    private Boolean status;
+    private String password;
 
 
 }
