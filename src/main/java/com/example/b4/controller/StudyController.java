@@ -40,7 +40,7 @@ public class StudyController {
         studyListRes.setStudies(studyService.getStudyLists());
 
 
-        // TODO : Study Count(comments) -> clear
+        // TODO : Study Count(comments)
 
         // TODO : Study-Category to List
         List<String> newString = Stream.of(StudyCategory.values())
@@ -49,8 +49,6 @@ public class StudyController {
 
         studyListRes.setCategories(newString);
 
-//        Long aLong = commentService.sumComments(3L);
-//        System.out.println("aLong = " + aLong);
         return new ResponseEntity<>(studyListRes,HttpStatus.ACCEPTED);
     }
 
@@ -75,8 +73,6 @@ public class StudyController {
     @ResponseBody
     @PostMapping("/new")
     public ResponseEntity<StudyDetailDto> postStudyDetail(@RequestBody StudyDetailReq studyDetailReq) {
-//        StudyDetailDto study = studyService.createStudy(studyDetailReq);
-//        System.out.println("study = " + study);
         return new ResponseEntity<>(studyService.createStudy(studyDetailReq), HttpStatus.ACCEPTED);
     }
     @ResponseBody
@@ -84,8 +80,6 @@ public class StudyController {
     public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable Long id, @RequestBody StudyDetailReq studyDetailReq) {
         StudyDetailDto studyDetailDto = studyService.updateStudy(id, studyDetailReq);
         return new ResponseEntity<>(studyDetailDto, HttpStatus.ACCEPTED);
-//        updateStudy(Long studyId,StudyDetailReq req)
-
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteStudyDetail(@PathVariable Long id) {
@@ -96,7 +90,6 @@ public class StudyController {
     @ResponseBody
     @PostMapping("/{id}/comment")
     public ResponseEntity<CommentDto> postComment( @PathVariable("id")Long id, @RequestBody CommentReq commentReq) {
-        System.out.println("!!!! commentReq.getCommentDetail() = " + commentReq.getCommentDetail());
         return new ResponseEntity<>(commentService.createComment(id, commentReq),HttpStatus.ACCEPTED);
 
     }
@@ -110,13 +103,13 @@ public class StudyController {
     public void deleteComment(@PathVariable("id") Long id,@PathVariable("comment-id")Long commentId) {
         commentService.deleteComment(commentId);
     }
-    // TODO : postId,userId,commentId 구분. postId 필요 없지 않나
+    // TODO : postId,userId,commentId 구분. postId 필요 없지 않나 - studyId 아니고 postId
     Long userId = 1L;
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/like")
-    public ResponseEntity<LikeDto> postLike(@PathVariable("id") Long id, @PathVariable("comment-id")  Long commentId, @RequestBody LikeReq req) {
+    public ResponseEntity<LikeDto> postLike(@PathVariable("id") Long postId, @PathVariable("comment-id")  Long commentId, @RequestBody LikeReq req) {
         System.out.println("req = " + req.getStatus());
-        return new ResponseEntity<>(likesService.like(id, commentId, req,userId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(likesService.like(postId, commentId, req,userId), HttpStatus.ACCEPTED);
     }
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/unlike")
