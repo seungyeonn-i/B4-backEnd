@@ -23,5 +23,15 @@ public class Mind extends BaseEntity {
     private Boolean status;
     private String password;
 
+    public void updateMindDetails(String mindDetails) {
+        this.mindDetails = mindDetails;
+    }
 
+    public void updateStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }
