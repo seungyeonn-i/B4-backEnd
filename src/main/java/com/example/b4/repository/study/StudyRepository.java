@@ -18,12 +18,12 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
 
 
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
+            "s.studyId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
             "from Study s join s.post p where p.postId=s.post.postId ")
     List<StudyListDto> findStudyListDto();
 
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
+            "s.studyId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
             "from Study s join s.post p where p.category = :category and p.postId = s.post.postId  ")
     List<StudyListDto> findStudyCategoryListDto(@Param("category") String category);
 

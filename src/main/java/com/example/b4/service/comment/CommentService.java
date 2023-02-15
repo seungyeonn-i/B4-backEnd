@@ -10,6 +10,7 @@ import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;
 import com.example.b4.repository.comment.LikesRepository;
+import com.example.b4.repository.study.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,13 @@ public class CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final LikesRepository likesRepository;
+    private final StudyRepository studyRepository;
 
-    public CommentDto createComment(Long postId,CommentReq req){
+    public CommentDto createComment(Long studyId,CommentReq req){
 
-        Post findPost = postRepository.findById(postId).get();
+        Post findPost = studyRepository.findPostByStudy(studyId);
+
+//        Post findPost = postRepository.findById(postId).get();
 
         User findUser = userRepository.findById(1L).get();
         Comment newComment = Comment.builder()
@@ -44,7 +48,10 @@ public class CommentService {
 
     }
 
-    public List<CommentDto> readComments(Long postId) {
+    public List<CommentDto> readComments(Long studyId) {
+
+        Post findPost = studyRepository.findPostByStudy(studyId);
+        Long postId = findPost.getPostId();
 
         List<CommentDto> allByPostId = commentRepository.findAllByPostId(postId);
         for (CommentDto commentDto : allByPostId) {
