@@ -27,20 +27,15 @@ public class CommentService {
 
     public CommentDto createComment(Long postId,CommentReq req){
 
-
-        // TODO : 1번에 15개 생김
-        System.out.println("postId = " + postId);
         Post findPost = postRepository.findById(postId).get();
 
-            System.out.println("findPost = " + findPost);
-            User findUser = userRepository.findById(1L).get();
-        System.out.println("req.getCommentDetail() = " + req.getCommentDetail());
-            Comment newComment = Comment.builder()
-                    .user(findUser)
-                    .post(findPost)
-                    .commentDetail(req.getCommentDetail())
-                    .commentAttachedFile(req.getCommentAttachedFile())
-                    .build();
+        User findUser = userRepository.findById(1L).get();
+        Comment newComment = Comment.builder()
+                .user(findUser)
+                .post(findPost)
+                .commentDetail(req.getCommentDetail())
+                .commentAttachedFile(req.getCommentAttachedFile())
+                .build();
         Comment save = commentRepository.save(newComment);
 
         return new CommentDto(save.getCommentId(),save.getUser().getUserNickname(),save.getCommentDetail(),save.getCommentAttachedFile(),save.getCreatedDate());
@@ -56,7 +51,6 @@ public class CommentService {
             commentDto.setLike(likesRepository.countLikes(commentDto.getCommentId(),"O"));
             commentDto.setUnlike(likesRepository.countLikes(commentDto.getCommentId(),"X"));
         }
-
         return allByPostId;
     }
 
