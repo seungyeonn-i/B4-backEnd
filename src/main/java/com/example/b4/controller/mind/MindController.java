@@ -1,5 +1,6 @@
-package com.example.b4.controller;
+package com.example.b4.controller.mind;
 
+import com.example.b4.dto.BookmarkDto;
 import com.example.b4.dto.comment.CommentDto;
 import com.example.b4.dto.comment.CommentReq;
 import com.example.b4.dto.comment.like.LikeDto;
@@ -126,5 +127,11 @@ public class MindController {
     @PostMapping("/{id}/comment/{comment-id}/cancel")
     public ResponseEntity<LikeDto> deleteLike(@PathVariable("id") Long id, @PathVariable("comment-id") Long commentId,@RequestBody LikeReq req) {
         return new ResponseEntity<>(likesService.like(id, commentId, req,userId), HttpStatus.NO_CONTENT);
+    }
+
+    @ResponseBody
+    @PostMapping("{id}/bookmark")
+    public ResponseEntity<String> postBookmark(@PathVariable("id") Long mindId, @RequestBody BookmarkDto bookmark) {
+        return new ResponseEntity<>(mindService.bookmark(mindId, bookmark.getBookmark()), HttpStatus.OK);
     }
 }

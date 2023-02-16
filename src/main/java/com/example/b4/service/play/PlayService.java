@@ -97,6 +97,23 @@ public class PlayService {
         return playRepository.findPlayCategoryListDto(category);
     }
 
+    public String bookmark(Long playId, String bookmark) {
+
+        Post findPost = playRepository.findPostByPlay(playId);
+
+        if (bookmark.equals("O")) {
+            findPost.updateBookmark(Boolean.TRUE);
+            Post savedPost = postRepository.save(findPost);
+            return savedPost.getBookmark().toString();
+        }else{
+            findPost.updateBookmark(Boolean.FALSE);
+            Post savedPost = postRepository.save(findPost);
+            return savedPost.getBookmark().toString();
+
+        }
+
+    }
+
 
 }
 

@@ -1,5 +1,6 @@
-package com.example.b4.controller;
+package com.example.b4.controller.play;
 
+import com.example.b4.dto.BookmarkDto;
 import com.example.b4.dto.play.PlayDetailDto;
 import com.example.b4.dto.play.PlayDetailReq;
 import com.example.b4.dto.play.PlayListRes;
@@ -69,5 +70,11 @@ public class PlayController {
     public ResponseEntity deleteStudyDetail(@PathVariable("id") Long playId) {
         playService.deletePlay(playId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @ResponseBody
+    @PostMapping("{id}/bookmark")
+    public ResponseEntity<String> postBookmark(@PathVariable("id") Long playId, @RequestBody BookmarkDto bookmark) {
+        return new ResponseEntity<>(playService.bookmark(playId, bookmark.getBookmark()), HttpStatus.OK);
     }
 }
