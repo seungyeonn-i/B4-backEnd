@@ -38,6 +38,6 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     StudyDetailDto findByPostIdDetailDto(@Param("postId")Long postId);
 
 
-    @Query("select p from Study s join s.post p where s.studyId =:studyId")
+    @Query("select p from Study s join s.post p where s.studyId =:studyId and s.post.postId = p.postId")
     Post findPostByStudy(@Param("studyId")Long studyId);
 }

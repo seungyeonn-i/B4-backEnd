@@ -15,12 +15,12 @@ import java.util.List;
 public interface MindRepository extends JpaRepository<Mind, Long> {
 
     @Query("select new com.example.b4.dto.mind.MindListDto(" +
-            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,m.status,p.comments.size,p.createdDate)" +
+            "m.mindId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,m.status,p.comments.size,p.createdDate)" +
             "from Mind m join m.post p where p.postId=m.post.postId ")
     List<MindListDto> findMindListDto();
 
     @Query("select new com.example.b4.dto.mind.MindListDto(" +
-            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,m.status,p.comments.size,p.createdDate)" +
+            "m.mindId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,m.status,p.comments.size,p.createdDate)" +
             "from Mind m join m.post p where p.category = :category and p.postId = m.post.postId ")
     List<MindListDto> findMindCategoryListDto(@Param("category") String category);
 
@@ -35,6 +35,6 @@ public interface MindRepository extends JpaRepository<Mind, Long> {
     MindDetailDto findByPostIdDetailDto(@Param("postId")Long postId);
 
 
-    @Query("select p from Mind m join m.post p where m.mindId =:mindId")
-    Post findPostByStudy(@Param("mindId")Long mindId);
+    @Query("select p from Mind m join m.post p where m.mindId =:mindId and m.post.postId = p.postId")
+    Post findPostByMind(@Param("mindId")Long mindId);
 }

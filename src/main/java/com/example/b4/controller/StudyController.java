@@ -9,6 +9,7 @@ import com.example.b4.dto.study.StudyDetailReq;
 import com.example.b4.dto.study.StudyListDto;
 import com.example.b4.dto.study.StudyListRes;
 import com.example.b4.entity.post.StudyCategory;
+import com.example.b4.repository.study.StudyRepository;
 import com.example.b4.service.comment.CommentService;
 import com.example.b4.service.comment.LikesService;
 import com.example.b4.service.study.StudyService;
@@ -62,7 +63,7 @@ public class StudyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudyDetailDto> getStudyDetail(@PathVariable Long studyId) {
+    public ResponseEntity<StudyDetailDto> getStudyDetail(@PathVariable("id") Long studyId) {
         return new ResponseEntity<>(studyService.getStudyDetailByStudyId(studyId),HttpStatus.OK);
     }
 
@@ -73,7 +74,7 @@ public class StudyController {
     }
     @ResponseBody
     @PutMapping("/{id}")
-    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable Long studyId, @RequestBody StudyDetailReq studyDetailReq) {
+    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable("id") Long studyId, @RequestBody StudyDetailReq studyDetailReq) {
         return new ResponseEntity<>(studyService.updateStudy(studyId, studyDetailReq), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/{id}")
@@ -83,13 +84,14 @@ public class StudyController {
     }
 
     /**
-     Comment
+     * Comment
      **/
 
     @ResponseBody
     @PostMapping("/{id}/comment")
-    public ResponseEntity<CommentDto> postComment( @PathVariable("id")Long studyId, @RequestBody CommentReq commentReq) {
-        return new ResponseEntity<>(commentService.createComment(studyId, commentReq),HttpStatus.OK);
+    public ResponseEntity<CommentDto> postComment(@PathVariable("id") Long studyId, @RequestBody CommentReq commentReq) {
+        Long postId = studyRepository.findPostByStudy(studyId).getPostId();
+        return new ResponseEntity<>(commentService.createComment(postId, commentReq), HttpStatus.OK);
 
     }
     @ResponseBody
@@ -107,6 +109,8 @@ public class StudyController {
         Like
      **/
     Long userId = 1L;
+    private final StudyRepository studyRepository;
+
     @ResponseBody
     @PostMapping("/{id}/comment/{comment-id}/like")
     public ResponseEntity<LikeDto> postLike(@PathVariable("id") Long postId, @PathVariable("comment-id")  Long commentId, @RequestBody LikeReq req) {

@@ -27,11 +27,11 @@ public class CommentService {
     private final LikesRepository likesRepository;
     private final StudyRepository studyRepository;
 
-    public CommentDto createComment(Long studyId,CommentReq req){
+    public CommentDto createComment(Long postId,CommentReq req){
 
-        Post findPost = studyRepository.findPostByStudy(studyId);
+//        Post findPost = studyRepository.findPostByStudy(studyId);
 
-//        Post findPost = postRepository.findById(postId).get();
+        Post findPost = postRepository.findById(postId).get();
 
         User findUser = userRepository.findById(1L).get();
         Comment newComment = Comment.builder()
@@ -48,10 +48,10 @@ public class CommentService {
 
     }
 
-    public List<CommentDto> readComments(Long studyId) {
+    public List<CommentDto> readComments(Long postId) {
 
-        Post findPost = studyRepository.findPostByStudy(studyId);
-        Long postId = findPost.getPostId();
+//        Post findPost = studyRepository.findPostByStudy(studyId);
+//        Long postId = findPost.getPostId();
 
         List<CommentDto> allByPostId = commentRepository.findAllByPostId(postId);
         for (CommentDto commentDto : allByPostId) {

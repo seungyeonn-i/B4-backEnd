@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MindListDto {
-    private Long postId;
+    private Long mindId;
     private String user;
 
     private String title;

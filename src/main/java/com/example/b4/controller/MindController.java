@@ -9,6 +9,7 @@ import com.example.b4.dto.mind.MindDetailReq;
 import com.example.b4.dto.mind.MindListRes;
 
 import com.example.b4.entity.post.MindCategory;
+import com.example.b4.repository.mind.MindRepository;
 import com.example.b4.service.comment.CommentService;
 import com.example.b4.service.comment.LikesService;
 import com.example.b4.service.mind.MindService;
@@ -86,9 +87,11 @@ public class MindController {
      **/
 
 
-    @ResponseBody @PostMapping("/{id}/comment")
-    public ResponseEntity<CommentDto> postComment(@PathVariable("id")Long mindId, @RequestBody CommentReq commentReq) {
-        return new ResponseEntity<>(commentService.createComment(mindId, commentReq),HttpStatus.OK);
+    @ResponseBody
+    @PostMapping("/{id}/comment")
+    public ResponseEntity<CommentDto> postComment(@PathVariable("id") Long mindId, @RequestBody CommentReq commentReq) {
+        Long postId = mindRepository.findPostByMind(mindId).getPostId();
+        return new ResponseEntity<>(commentService.createComment(postId, commentReq), HttpStatus.OK);
 
     }
     @ResponseBody @PutMapping("/{id}/comment/{comment-id}")
@@ -102,6 +105,7 @@ public class MindController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
     Long userId = 1L;
+    private final MindRepository mindRepository;
 
     /**
      * Like

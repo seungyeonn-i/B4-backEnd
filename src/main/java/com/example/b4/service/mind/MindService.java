@@ -41,7 +41,7 @@ public class MindService {
                 .build();
 
         Boolean status = Boolean.FALSE;
-        if(req.getStatus().equals("True")){
+        if(req.getStatus().equals("O")){
             status = Boolean.TRUE;
         }
 
@@ -58,8 +58,8 @@ public class MindService {
 
     }
 
-    public MindDetailDto getMindDetailsByMindId(Long studyId) {
-        Post findPost = mindRepository.findPostByStudy(studyId);
+    public MindDetailDto getMindDetailsByMindId(Long mindId) {
+        Post findPost = mindRepository.findPostByMind(mindId);
         Long postId = findPost.getPostId();
 
         MindDetailDto getMindDetail = mindRepository.findByPostIdDetailDto(postId);
@@ -75,14 +75,14 @@ public class MindService {
         updateMind.updateMindDetails(req.getMindDetails());
 
         Boolean status = Boolean.FALSE;
-        if(req.getStatus().equals("True")){
+        if(req.getStatus().equals("O")){
             status = Boolean.TRUE;
         }
         updateMind.updateStatus(status);
         updateMind.updatePassword(req.getPassword());
         Mind savedMind = mindRepository.save(updateMind);
 
-        Post updatePost = mindRepository.findPostByStudy(mindId);
+        Post updatePost = mindRepository.findPostByMind(mindId);
         updatePost.updateTitle(req.getTitle());
         updatePost.updateAttachedFile(req.getMindAttachedFile());
         updatePost.updateCategory(req.getCategory());
@@ -95,7 +95,7 @@ public class MindService {
 
     public void deleteMind(Long mindId) {
         Mind findMind = mindRepository.findById(mindId).get();
-        Post findPost = mindRepository.findPostByStudy(mindId);
+        Post findPost = mindRepository.findPostByMind(mindId);
         postRepository.delete(findPost);
         mindRepository.delete(findMind);
 
