@@ -46,11 +46,20 @@ public class User {
 
 
     @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
-    public User(String username, String password, String email, Role role) {
+    public User(String username, String password, String email, Role role,
+                String loginId, String userPhone, String userBirth, String userJob,
+                String nickname, String provider) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.loginId = loginId;
+        this.userPhone = userPhone;
+        this.userBirth = userBirth;
+        this.userJob = userJob;
+        this.nickname = nickname;
+        this.provider = provider;
+
     }
 
     @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")

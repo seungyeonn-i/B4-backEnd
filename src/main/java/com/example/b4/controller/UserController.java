@@ -1,20 +1,20 @@
 package com.example.b4.controller;
 
 import com.example.b4.auth.PrincipalDetails;
+import com.example.b4.dto.UserJoinDto;
 import com.example.b4.entity.Role;
 import com.example.b4.entity.User;
 import com.example.b4.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -34,15 +34,19 @@ public class UserController {
         return "join";
     }
 
-    @PostMapping("/join")
-    public String join(@ModelAttribute User user){
-        user.setRole(Role.ROLE_USER);
+    @PostMapping("/signup")
+    public ResponseEntity join(@RequestBody UserJoinDto userInfo){
 
-        String encodePwd = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encodePwd);
+        String encodePwd = bCryptPasswordEncoder.encode(userInfo.getLoginPw());
+
+        User user = User.userDetailRegister()
+                        .username(userInfo.getUserName()).email(userInfo.getUserEmail())
+                        .role(Role.ROLE_USER).password(encodePwd).userBirth(userInfo.getUserBirth())
+                        .userJob(userInfo.getUserJob()).userPhone(userInfo.getUserPhone()).provider("form")
+                        .loginId(userInfo.getLoginId()).nickname(userInfo.getNickname()).build();
 
         userRepository.save(user);  //반드시 패스워드 암호화해야함
-        return "redirect:/loginForm";
+        return new ResponseEntity("회원가입 성공", HttpStatus.OK);
     }
 
     @GetMapping("/user")
