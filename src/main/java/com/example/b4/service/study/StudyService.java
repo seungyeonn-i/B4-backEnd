@@ -27,7 +27,6 @@ public class StudyService {
     private final PostRepository postRepository;
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
-    private final CommentRepository commentRepository;
     private final CommentService commentService;
 
     public StudyDetailDto createStudy(StudyDetailReq req) {
@@ -37,7 +36,7 @@ public class StudyService {
         User user = userRepository.findById(1L).get();
 
         Post newPost = Post.builder()
-                .bookmark(Boolean.TRUE)
+                .bookmark(Boolean.FALSE)
                 .user(user)
                 .title(req.getTitle())
                 .attachedFile(req.getStudyAttachedFile())
@@ -55,7 +54,10 @@ public class StudyService {
 
     }
 
-    public StudyDetailDto getStudyDetailByPostId(Long postId) {
+    public StudyDetailDto getStudyDetailByStudyId(Long studyId) {
+
+        Post findPost = studyRepository.findPostByStudy(studyId);
+        Long postId = findPost.getPostId();
 
         StudyDetailDto getStudyDetail = studyRepository.findByPostIdDetailDto(postId);
         getStudyDetail.setComments(commentService.readComments(postId));

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyListDto {
-    private Long postId;
+    private Long studyId;
     private String user;
 
     private String title;
@@ -22,16 +22,16 @@ public class StudyListDto {
 
     private LocalDateTime createdDate;
 
-    public StudyListDto(Long postId, String title, String category, String attachedFile, boolean bookmark) {
-        this.postId = postId;
+    public StudyListDto(Long studyId, String title, String category, String attachedFile, boolean bookmark) {
+        this.studyId = studyId;
         this.title = title;
         this.category = category;
         this.attachedFile = attachedFile;
         this.bookmark = bookmark;
     }
 
-    public StudyListDto(Long postId, String user, String title, String category, String attachedFile, boolean bookmark,LocalDateTime createdDate) {
-        this.postId = postId;
+    public StudyListDto(Long studyId, String user, String title, String category, String attachedFile, boolean bookmark,LocalDateTime createdDate) {
+        this.studyId = studyId;
         this.user = user;
         this.title = title;
         this.category = category;
@@ -40,8 +40,8 @@ public class StudyListDto {
         this.createdDate = createdDate;
     }
 
-    public StudyListDto(Long postId, String user, String title, String category, String attachedFile, boolean bookmark,LocalDateTime createdDate,int comments) {
-        this.postId = postId;
+    public StudyListDto(Long studyId, String user, String title, String category, String attachedFile, boolean bookmark,LocalDateTime createdDate,int comments) {
+        this.studyId = studyId;
         this.user = user;
         this.title = title;
         this.category = category;
