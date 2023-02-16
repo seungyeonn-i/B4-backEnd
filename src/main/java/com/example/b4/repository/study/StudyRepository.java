@@ -33,7 +33,7 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     List<StudyDetailDto> findStudyDetailDto();
 
     @Query("select new com.example.b4.dto.study.StudyDetailDto(" +
-            "p.category,p.title,p.category,s.studyDetails,p.attachedFile,p.createdDate)" +
+            "p.category,p.title,p.user.userNickname,s.studyDetails,p.attachedFile,p.createdDate)" +
             "from Study s join s.post p where p.postId=:postId and p.postId=s.post.postId")
     StudyDetailDto findByPostIdDetailDto(@Param("postId")Long postId);
 

@@ -109,5 +109,22 @@ public class MindService {
         return mindRepository.findMindCategoryListDto(category);
     }
 
+    public String bookmark(Long mindId, String bookmark) {
+
+        Post findPost = mindRepository.findPostByMind(mindId);
+
+        if (bookmark.equals("O")) {
+            findPost.updateBookmark(Boolean.TRUE);
+            Post savedPost = postRepository.save(findPost);
+            return savedPost.getBookmark().toString();
+        }else{
+            findPost.updateBookmark(Boolean.FALSE);
+            Post savedPost = postRepository.save(findPost);
+            return savedPost.getBookmark().toString();
+
+        }
+
+    }
+
 
 }
