@@ -3,9 +3,10 @@ package com.example.b4.service.study;
 import com.example.b4.dto.study.StudyDetailDto;
 import com.example.b4.dto.study.StudyDetailReq;
 import com.example.b4.dto.study.StudyListDto;
+import com.example.b4.entity.User;
 import com.example.b4.entity.post.Post;
 import com.example.b4.entity.post.Study;
-import com.example.b4.entity.user.User;
+//import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;
@@ -34,6 +35,8 @@ public class StudyService {
 //            user.setUserNickname("user1");
         // TODO : JWT로 교체
         User user = userRepository.findById(1L).get();
+//        User user;
+
 
         Post newPost = Post.builder()
                 .bookmark(Boolean.FALSE)

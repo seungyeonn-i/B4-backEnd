@@ -31,10 +31,10 @@ public class TestDataInit {
 
     @PostConstruct
     public void init() {
-        User user1 = new User("user1", UserRole.STUDENT, "user1id", "user1pw");
-        User user2 = new User("user2", UserRole.STUDENT, "user2id", "user2pw");
-        userRepository.save(user1);
-        userRepository.save(user2);
+//        User user1 = new User("user1", UserRole.STUDENT, "user1id", "user1pw");
+//        User user2 = new User("user2", UserRole.STUDENT, "user2id", "user2pw");
+//        userRepository.save(user1);
+//        userRepository.save(user2);
 
 //        Post post1 = new Post(user1, "title1", "국어", "attachedFile", Boolean.TRUE);
 //        Post post2 = new Post(user2, "title2", "수학", "attachedFile2", Boolean.TRUE);
