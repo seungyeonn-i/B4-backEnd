@@ -1,6 +1,7 @@
 package com.example.b4.entity.user;
 
 import com.example.b4.entity.BaseTimeEntity;
+import com.example.b4.entity.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

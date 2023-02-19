@@ -4,9 +4,9 @@ import com.example.b4.dto.play.PlayDetailDto;
 import com.example.b4.dto.play.PlayDetailReq;
 import com.example.b4.dto.play.PlayListDto;
 import com.example.b4.dto.study.StudyDetailDto;
+import com.example.b4.entity.User;
 import com.example.b4.entity.post.Play;
 import com.example.b4.entity.post.Post;
-import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.play.PlayRepository;
@@ -50,7 +50,7 @@ public class PlayService {
         Play savedPlay = playRepository.save(newPlay);
 
         return new PlayDetailDto(savedPlay.getPost().getCategory(), savedPlay.getPost().getTitle(),
-                savedPlay.getPost().getUser().getUserNickname(),
+                savedPlay.getPost().getUser().getNickname(),
                 savedPlay.getPlayDetails(), savedPlay.getPost().getAttachedFile(), savedPlay.getPost().getCreatedDate(), savedPlay.getSubmitLink(), savedPlay.getDueTo(), savedPlay.getStatus());
     }
 
@@ -78,7 +78,7 @@ public class PlayService {
         Post savedPost = postRepository.save(updatePost);
 
         return new PlayDetailDto(savedPlay.getPost().getCategory(), savedPlay.getPost().getTitle(),
-                savedPlay.getPost().getUser().getUserNickname(),
+                savedPlay.getPost().getUser().getNickname(),
                 savedPlay.getPlayDetails(), savedPlay.getPost().getAttachedFile(), savedPlay.getPost().getCreatedDate(), savedPlay.getSubmitLink(), savedPlay.getDueTo(), savedPlay.getStatus());
     }
 
