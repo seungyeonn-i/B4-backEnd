@@ -117,7 +117,22 @@ public class StudyService {
     }
     // return
 
+    public String bookmark(Long studyId, String bookmark) {
 
+        Post findPost = studyRepository.findPostByStudy(studyId);
+
+        if (bookmark.equals("O")) {
+            findPost.updateBookmark(Boolean.TRUE);
+            Post savedPost = postRepository.save(findPost);
+            return savedPost.getBookmark().toString();
+        }else{
+            findPost.updateBookmark(Boolean.FALSE);
+            Post savedPost = postRepository.save(findPost);
+            return savedPost.getBookmark().toString();
+
+        }
+
+    }
 
 
 

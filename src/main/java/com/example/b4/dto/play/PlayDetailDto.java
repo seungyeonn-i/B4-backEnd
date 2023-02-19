@@ -1,18 +1,25 @@
 package com.example.b4.dto.play;
 
-import lombok.Data;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Data
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 public class PlayDetailDto {
     private String category;
     private String title;
     private String user;
-    private String submitLink;
-    private String dueTo;
     private String playDetails;
     private String playAttachedFile;
 
+    private LocalDateTime createdAt;
+
+    private String submitLink;
+    private LocalDateTime dueTo;
     private String playStatus;
-    private String createdAt;
 
 }
