@@ -1,14 +1,5 @@
 package com.example.b4;
 
-import com.example.b4.dto.comment.CommentDto;
-import com.example.b4.dto.comment.CommentReq;
-import com.example.b4.dto.study.StudyDetailDto;
-import com.example.b4.dto.study.StudyDetailReq;
-import com.example.b4.entity.post.Comment;
-import com.example.b4.entity.post.Post;
-import com.example.b4.entity.post.StudyCategory;
-import com.example.b4.entity.user.User;
-import com.example.b4.entity.user.UserRole;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;

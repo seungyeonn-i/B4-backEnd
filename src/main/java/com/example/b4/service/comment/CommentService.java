@@ -5,7 +5,7 @@ import com.example.b4.dto.comment.CommentDto;
 import com.example.b4.dto.comment.CommentReq;
 import com.example.b4.entity.post.Comment;
 import com.example.b4.entity.post.Post;
-import com.example.b4.entity.user.User;
+import com.example.b4.entity.User;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;
@@ -33,6 +33,8 @@ public class CommentService {
 
         Post findPost = postRepository.findById(postId).get();
 
+//        User findUser = userRepository.findById(1L).get();
+
         User findUser = userRepository.findById(1L).get();
         Comment newComment = Comment.builder()
                 .user(findUser)
@@ -42,7 +44,7 @@ public class CommentService {
                 .build();
         Comment save = commentRepository.save(newComment);
 
-        return new CommentDto(save.getCommentId(),save.getUser().getUserNickname(),save.getCommentDetail(),save.getCommentAttachedFile(),save.getCreatedDate());
+        return new CommentDto(save.getCommentId(),save.getUser().getNickname(),save.getCommentDetail(),save.getCommentAttachedFile(),save.getCreatedDate());
         // TODO : 1. postId가 null 일 때
         // TODO : 2. optional 처리
 
@@ -67,7 +69,7 @@ public class CommentService {
         updateComment.updateCommentDetail(commentReq.getCommentDetail());
         updateComment.updateCommentAttachedFile(commentReq.getCommentAttachedFile());
         Comment savedComment = commentRepository.save(updateComment);
-        return new CommentDto(savedComment.getCommentId(), savedComment.getUser().getUserNickname(), savedComment.getCommentDetail(), savedComment.getCommentAttachedFile(), savedComment.getCreatedDate());
+        return new CommentDto(savedComment.getCommentId(), savedComment.getUser().getNickname(), savedComment.getCommentDetail(), savedComment.getCommentAttachedFile(), savedComment.getCreatedDate());
     }
 
     public void deleteComment(Long commentId) {

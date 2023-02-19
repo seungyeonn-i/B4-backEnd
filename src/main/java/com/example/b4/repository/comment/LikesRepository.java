@@ -1,8 +1,8 @@
 package com.example.b4.repository.comment;
 
+import com.example.b4.entity.User;
 import com.example.b4.entity.post.Comment;
 import com.example.b4.entity.post.Likes;
-import com.example.b4.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

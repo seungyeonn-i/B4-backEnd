@@ -1,7 +1,7 @@
 package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseTimeEntity;
-import com.example.b4.entity.user.User;
+import com.example.b4.entity.User;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

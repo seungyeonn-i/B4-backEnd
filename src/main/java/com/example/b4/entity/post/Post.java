@@ -1,7 +1,7 @@
 package com.example.b4.entity.post;
 
 import com.example.b4.entity.BaseTimeEntity;
-import com.example.b4.entity.user.User;
+import com.example.b4.entity.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static lombok.AccessLevel.PROTECTED;
 

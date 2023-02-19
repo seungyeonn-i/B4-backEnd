@@ -3,9 +3,9 @@ package com.example.b4.service.comment;
 
 import com.example.b4.dto.comment.like.LikeDto;
 import com.example.b4.dto.comment.like.LikeReq;
+import com.example.b4.entity.User;
 import com.example.b4.entity.post.Comment;
 import com.example.b4.entity.post.Likes;
-import com.example.b4.entity.user.User;
 import com.example.b4.repository.PostRepository;
 import com.example.b4.repository.UserRepository;
 import com.example.b4.repository.comment.CommentRepository;

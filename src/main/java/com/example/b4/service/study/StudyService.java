@@ -53,7 +53,7 @@ public class StudyService {
                 .build();
         Study savedStudy = studyRepository.save(newStudy);
 //        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
-        return new StudyDetailDto(savedStudy.getPost().getCategory(), savedStudy.getPost().getTitle(), savedStudy.getPost().getUser().getUserNickname(),savedStudy.getStudyDetails(), savedStudy.getPost().getAttachedFile(),savedStudy.getPost().getCreatedDate());
+        return new StudyDetailDto(savedStudy.getPost().getCategory(), savedStudy.getPost().getTitle(), savedStudy.getPost().getUser().getNickname(),savedStudy.getStudyDetails(), savedStudy.getPost().getAttachedFile(),savedStudy.getPost().getCreatedDate());
 
     }
 
@@ -85,7 +85,7 @@ public class StudyService {
 
         //TODO : pleaseUpdate
 
-        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getUserNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
+        return new StudyDetailDto(savedPost.getCategory(), savedPost.getTitle(), savedPost.getUser().getNickname(),savedStudy.getStudyDetails(), savedPost.getAttachedFile(),savedPost.getCreatedDate());
     }
 
     public void deleteStudy(Long studyId) {
