@@ -3,8 +3,10 @@ package com.example.b4.repository;
 import com.example.b4.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUserId(Long userId);
+import java.util.Optional;
 
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    Optional<User> findById(Long userId);
     User findByUsername(String username);
 }

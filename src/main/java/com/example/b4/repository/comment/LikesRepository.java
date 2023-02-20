@@ -18,7 +18,7 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
     Long countLikes(@Param("commentId") Long commentId, @Param("status") String status);
 
     @Modifying
-    @Query("delete  from Likes l where l.user.userId = :userId")
+    @Query("delete  from Likes l where l.user.id = :userId")
     void deleteLikesByUser(@Param("userId") Long userId);
 
 

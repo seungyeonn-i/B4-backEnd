@@ -30,11 +30,12 @@ public class StudyService {
     private final UserRepository userRepository;
     private final CommentService commentService;
 
-    public StudyDetailDto createStudy(StudyDetailReq req) {
+    public StudyDetailDto createStudy(StudyDetailReq req, Long userId) {
 //            user.setUserId(1L);
 //            user.setUserNickname("user1");
         // TODO : JWT로 교체
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));;
 //        User user;
 
 
@@ -67,9 +68,10 @@ public class StudyService {
         return getStudyDetail;
     }
 
-    public StudyDetailDto updateStudy(Long studyId,StudyDetailReq req) {
+    public StudyDetailDto updateStudy(Long studyId,StudyDetailReq req, Long userId) {
 
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));;
 
         Optional<Study> optional = studyRepository.findById(studyId);
 

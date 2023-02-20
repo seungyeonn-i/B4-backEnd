@@ -33,6 +33,11 @@ public class MindController {
     private final CommentService commentService;
     private final LikesService likesService;
 
+    /**
+     * 꼭 수정
+     */
+    private final Long userId = 1l;
+
     @GetMapping
     public ResponseEntity<MindListRes> getMindList() {
 
@@ -69,12 +74,12 @@ public class MindController {
 
     @ResponseBody @PostMapping("/new")
     public ResponseEntity<MindDetailDto> postMindDetail(@RequestBody MindDetailReq mindDetailReq) {
-        return new ResponseEntity<>(mindService.createMind(mindDetailReq), HttpStatus.OK);
+        return new ResponseEntity<>(mindService.createMind(mindDetailReq, userId), HttpStatus.OK);
     }
 
     @ResponseBody @PutMapping("/{id}")
     public ResponseEntity<MindDetailDto> putMindDetail(@PathVariable("id") Long mindId, @RequestBody MindDetailReq mindDetailReq) {
-        return new ResponseEntity<>(mindService.updateMind(mindId, mindDetailReq), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(mindService.updateMind(mindId, mindDetailReq, userId), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
@@ -92,7 +97,7 @@ public class MindController {
     @PostMapping("/{id}/comment")
     public ResponseEntity<CommentDto> postComment(@PathVariable("id") Long mindId, @RequestBody CommentReq commentReq) {
         Long postId = mindRepository.findPostByMind(mindId).getPostId();
-        return new ResponseEntity<>(commentService.createComment(postId, commentReq), HttpStatus.OK);
+        return new ResponseEntity<>(commentService.createComment(postId, commentReq, userId), HttpStatus.OK);
 
     }
     @ResponseBody @PutMapping("/{id}/comment/{comment-id}")
@@ -105,7 +110,6 @@ public class MindController {
         commentService.deleteComment(commentId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-    Long userId = 1L;
     private final MindRepository mindRepository;
 
     /**

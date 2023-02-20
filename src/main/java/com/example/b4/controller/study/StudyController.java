@@ -35,6 +35,11 @@ public class StudyController {
     private final CommentService commentService;
     private final LikesService likesService;
 
+    /**
+     * 꼭 수정
+     */
+    private final Long userId = 1l;
+
     @GetMapping
     public ResponseEntity<StudyListRes> getStudyList() {
 
@@ -71,12 +76,12 @@ public class StudyController {
     @ResponseBody
     @PostMapping("/new")
     public ResponseEntity<StudyDetailDto> postStudyDetail(@RequestBody StudyDetailReq studyDetailReq) {
-        return new ResponseEntity<>(studyService.createStudy(studyDetailReq), HttpStatus.OK);
+        return new ResponseEntity<>(studyService.createStudy(studyDetailReq, userId), HttpStatus.OK);
     }
     @ResponseBody
     @PutMapping("/{id}")
     public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable("id") Long studyId, @RequestBody StudyDetailReq studyDetailReq) {
-        return new ResponseEntity<>(studyService.updateStudy(studyId, studyDetailReq), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(studyService.updateStudy(studyId, studyDetailReq, userId), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteStudyDetail(@PathVariable("id") Long studyId) {
@@ -92,7 +97,7 @@ public class StudyController {
     @PostMapping("/{id}/comment")
     public ResponseEntity<CommentDto> postComment(@PathVariable("id") Long studyId, @RequestBody CommentReq commentReq) {
         Long postId = studyRepository.findPostByStudy(studyId).getPostId();
-        return new ResponseEntity<>(commentService.createComment(postId, commentReq), HttpStatus.OK);
+        return new ResponseEntity<>(commentService.createComment(postId, commentReq,userId), HttpStatus.OK);
 
     }
     @ResponseBody
@@ -109,7 +114,6 @@ public class StudyController {
     /**
         Like
      **/
-    Long userId = 1L;
     private final StudyRepository studyRepository;
 
     @ResponseBody

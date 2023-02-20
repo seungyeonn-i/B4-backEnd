@@ -26,9 +26,10 @@ public class MindService {
     private final UserRepository userRepository;
     private final CommentService commentService;
 
-    public MindDetailDto createMind(MindDetailReq req) {
+    public MindDetailDto createMind(MindDetailReq req, Long userId) {
 
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));;
 
         Post newPost = Post.builder()
                 .bookmark(Boolean.FALSE)
@@ -65,8 +66,9 @@ public class MindService {
         return getMindDetail;
     }
 
-    public MindDetailDto updateMind(Long mindId, MindDetailReq req) {
-        User user = userRepository.findById(1L).get();
+    public MindDetailDto updateMind(Long mindId, MindDetailReq req, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));;
 
         Optional<Mind> optional = mindRepository.findById(mindId);
         Mind updateMind = optional.get();

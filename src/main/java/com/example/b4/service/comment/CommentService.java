@@ -27,7 +27,7 @@ public class CommentService {
     private final LikesRepository likesRepository;
     private final StudyRepository studyRepository;
 
-    public CommentDto createComment(Long postId,CommentReq req){
+    public CommentDto createComment(Long postId,CommentReq req, Long userId){
 
 //        Post findPost = studyRepository.findPostByStudy(studyId);
 
@@ -35,7 +35,8 @@ public class CommentService {
 
 //        User findUser = userRepository.findById(1L).get();
 
-        User findUser = userRepository.findById(1L).get();
+        User findUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));
         Comment newComment = Comment.builder()
                 .user(findUser)
                 .post(findPost)

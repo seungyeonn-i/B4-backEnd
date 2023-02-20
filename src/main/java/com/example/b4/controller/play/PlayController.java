@@ -26,6 +26,11 @@ public class PlayController {
 
     private final PlayService playService;
 
+    /**
+     * 꼭 수정
+     */
+    private final Long userId = 1l;
+
     @GetMapping
     public ResponseEntity<PlayListRes> getPlayList() {
         PlayListRes playListRes = new PlayListRes();
@@ -59,12 +64,12 @@ public class PlayController {
     @ResponseBody
     @PostMapping("/new")
     public ResponseEntity<PlayDetailDto> postStudyDetail(@RequestBody PlayDetailReq playDetailReq) {
-        return new ResponseEntity<>(playService.createPlay(playDetailReq), HttpStatus.OK);
+        return new ResponseEntity<>(playService.createPlay(playDetailReq, userId), HttpStatus.OK);
     }
     @ResponseBody
     @PutMapping("/{id}")
     public ResponseEntity<PlayDetailDto> putStudyDetail(@PathVariable("id") Long playId, @RequestBody PlayDetailReq playDetailReq) {
-        return new ResponseEntity<>(playService.updatePlay(playId, playDetailReq), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(playService.updatePlay(playId, playDetailReq, userId), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteStudyDetail(@PathVariable("id") Long playId) {

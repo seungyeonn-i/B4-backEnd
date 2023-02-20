@@ -12,18 +12,18 @@ import java.util.List;
 
 public interface StudyRepository extends JpaRepository<Study, Long> {
 //    @Query("select new com.example.b4.dto.study.StudyListDto(" +
-//            "p.postId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate)" +
+//            "p.postId,p.user.nickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate)" +
 //            "from Study s join s.post p where p.postId=s.post.postId")
 //    List<StudyListDto> findStudyListDto();
 
 
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "s.studyId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
+            "s.studyId,p.user.nickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
             "from Study s join s.post p where p.postId=s.post.postId ")
     List<StudyListDto> findStudyListDto();
 
     @Query("select new com.example.b4.dto.study.StudyListDto(" +
-            "s.studyId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
+            "s.studyId,p.user.nickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,p.comments.size)" +
             "from Study s join s.post p where p.category = :category and p.postId = s.post.postId  ")
     List<StudyListDto> findStudyCategoryListDto(@Param("category") String category);
 
@@ -33,7 +33,7 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     List<StudyDetailDto> findStudyDetailDto();
 
     @Query("select new com.example.b4.dto.study.StudyDetailDto(" +
-            "p.category,p.title,p.user.userNickname,s.studyDetails,p.attachedFile,p.createdDate)" +
+            "p.category,p.title,p.user.nickname,s.studyDetails,p.attachedFile,p.createdDate)" +
             "from Study s join s.post p where p.postId=:postId and p.postId=s.post.postId")
     StudyDetailDto findByPostIdDetailDto(@Param("postId")Long postId);
 

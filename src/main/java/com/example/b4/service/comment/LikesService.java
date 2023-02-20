@@ -34,7 +34,8 @@ public class LikesService {
 
         } else {
             Comment findComment = commentRepository.findById(commentId).get();
-            User findUser = userRepository.findByUserId(userId);
+            User findUser = userRepository.findById(userId)
+                    .orElseThrow(() -> new IllegalStateException("회원 없음"));;
             Optional<Likes> optional = likesRepository.findLikesByCommentAndUser(findComment, findUser);
             if (optional.isPresent()) {
                 Likes findLikes = optional.get();
@@ -43,7 +44,7 @@ public class LikesService {
                 return new LikeDto(commentId, save.getLikesStatus());
             }else {
                 Likes build = Likes.builder()
-                        .user(userRepository.findByUserId(1L))
+                        .user(userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("회원 없음")))
                         .comment(commentRepository.findById(commentId).get())
                         .likesStatus(req.getStatus())
                         .build();

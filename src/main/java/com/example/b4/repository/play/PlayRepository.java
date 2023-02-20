@@ -13,17 +13,17 @@ import java.util.List;
 public interface PlayRepository extends JpaRepository<Play,Long> {
 
     @Query("select new com.example.b4.dto.play.PlayListDto(" +
-            "pl.playId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,pl.status)" +
+            "pl.playId,p.user.nickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,pl.status)" +
             "from Play pl join pl.post p where p.postId=pl.post.postId")
     List<PlayListDto> findPlayListDto();
 
     @Query("select new com.example.b4.dto.play.PlayListDto(" +
-            "pl.playId,p.user.userNickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,pl.status)" +
+            "pl.playId,p.user.nickname,p.title,p.category,p.attachedFile,p.bookmark,p.createdDate,pl.status)" +
             "from Play pl join pl.post p where p.category =: category and p.postId=pl.post.postId")
     List<PlayListDto> findPlayCategoryListDto(@Param("category") String category);
 
     @Query("select new com.example.b4.dto.play.PlayDetailDto(" +
-            "p.category,p.title,p.user.userNickname,pl.playDetails,p.attachedFile,p.createdDate,pl.submitLink,pl.dueTo,pl.status)" +
+            "p.category,p.title,p.user.nickname,pl.playDetails,p.attachedFile,p.createdDate,pl.submitLink,pl.dueTo,pl.status)" +
             "from Play pl join pl.post p where p.postId=:postId and p.postId=pl.post.postId")
     PlayDetailDto findByPostIdDetailDto(@Param("postId") Long postId);
 

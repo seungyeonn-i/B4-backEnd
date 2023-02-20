@@ -29,8 +29,9 @@ public class PlayService {
     private final UserRepository userRepository;
     private final CommentService commentService;
 
-    public PlayDetailDto createPlay(PlayDetailReq req) {
-        User user = userRepository.findById(1L).get();
+    public PlayDetailDto createPlay(PlayDetailReq req, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));;
 
         Post newPost = Post.builder()
                 .bookmark(Boolean.FALSE)
@@ -61,8 +62,9 @@ public class PlayService {
         return playRepository.findByPostIdDetailDto(postId);
     }
 
-    public PlayDetailDto updatePlay(Long playId, PlayDetailReq req) {
-        User user = userRepository.findById(1L).get();
+    public PlayDetailDto updatePlay(Long playId, PlayDetailReq req, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("회원 없음"));;
 
         Optional<Play> optional = playRepository.findById(playId);
         Play updatePlay = optional.get();
