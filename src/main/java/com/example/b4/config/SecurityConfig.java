@@ -2,11 +2,15 @@ package com.example.b4.config;
 
 import com.example.b4.auth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http
+                .cors().configurationSource(corsFilter())
+                .and()
+                .authorizeRequests()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/manager/**").access("hasRole('MANAGER') or hasRole('ADMIN')")
                 .antMatchers("/admin/**").hasRole("ADMIN")
@@ -38,5 +45,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //security 무시하기
     public void configure(WebSecurity web)throws Exception{
         web.ignoring().antMatchers("/h2-console/**");
+    }
+
+    @Bean
+    public CorsConfigurationSource corsFilter(){
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+        config.setMaxAge(3600L);
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
