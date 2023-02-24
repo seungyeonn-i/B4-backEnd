@@ -1,10 +1,17 @@
 package com.example.b4.controller;
 
 import com.example.b4.auth.PrincipalDetails;
+import com.example.b4.config.JwtTokenProvider;
+import com.example.b4.dto.JwtTokenDto;
+import com.example.b4.dto.RequestTokenDto;
 import com.example.b4.dto.UserJoinDto;
+import com.example.b4.entity.RefreshToken;
 import com.example.b4.entity.Role;
 import com.example.b4.entity.User;
+import com.example.b4.repository.RefreshTokenRepository;
 import com.example.b4.repository.UserRepository;
+import com.example.b4.service.user.UserTokenService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -12,26 +19,53 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 public class UserController {
     @Autowired
     private UserRepository userRepository;
     @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserTokenService userTokenService;
 
-    @GetMapping("/loginForm")
-    public String loginForm(){
-        return "login";
-    }
+    @PostMapping("/login/form")
+    public JwtTokenDto login(@RequestBody UserJoinDto user) {
+        User member = userRepository.findByLoginId(user.getLoginId())
+                .orElseThrow(() -> new IllegalStateException());
+        JwtTokenDto jwtTokenDto = new JwtTokenDto();
+        if (!passwordEncoder.matches(user.getLoginPw(), member.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
 
-    @GetMapping("/joinForm")
-    public String joinForm(){
-        return "join";
+        RefreshToken oldRefreshToken = refreshTokenRepository.findByEmail(member.getEmail())
+                .orElseGet(RefreshToken::new);
+        oldRefreshToken.setEmail(member.getEmail());
+
+        if(oldRefreshToken == null) {
+            oldRefreshToken.setToken(jwtTokenProvider.createRefreshToken(member.getEmail(),member.getRole()));
+            refreshTokenRepository.save(oldRefreshToken);
+            jwtTokenDto.updateRefreshToken(oldRefreshToken);
+        }
+
+        else {
+            jwtTokenDto.setAccessToken(jwtTokenProvider.createToken(member.getEmail(), member.getRole()));
+            jwtTokenDto.setRefreshToken(jwtTokenProvider.createRefreshToken(member.getEmail(), member.getRole()));
+            jwtTokenDto.setDate(jwtTokenProvider.jwtValidDate());
+            RefreshToken refreshToken = new RefreshToken(member.getEmail(), jwtTokenDto.getRefreshToken());
+            oldRefreshToken.updateToken(refreshToken.getToken());
+            refreshTokenRepository.save(oldRefreshToken);
+        }
+
+        return jwtTokenDto;
     }
 
     @PostMapping("/signup")
@@ -49,22 +83,16 @@ public class UserController {
         return new ResponseEntity("회원가입 성공", HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    @ResponseBody
-    public String user(){
-        return "user";
-    }
 
-    @GetMapping("/manager")
-    @ResponseBody
-    public String manager(){
-        return "manager";
-    }
+    //토큰 재발급
+    @PostMapping("/reissue")
+    public JwtTokenDto refreshToken(@RequestHeader(value = "ACCESS-TOKEN") String accessToken,
+                                    @RequestHeader(value = "REFRESH-TOKEN") String refreshToken ) {
+        RequestTokenDto requestTokenDto = new RequestTokenDto(accessToken, refreshToken);
 
-    @GetMapping("/admin")
-    @ResponseBody
-    public String admin(){
-        return "admin";
+        JwtTokenDto jwtTokenDto = userTokenService.reissue(requestTokenDto);
+
+        return jwtTokenDto;
     }
 
 
