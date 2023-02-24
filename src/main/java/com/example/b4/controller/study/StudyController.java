@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,12 +76,12 @@ public class StudyController {
 
     @ResponseBody
     @PostMapping("/new")
-    public ResponseEntity<StudyDetailDto> postStudyDetail(@RequestBody StudyDetailReq studyDetailReq) {
+    public ResponseEntity<StudyDetailDto> postStudyDetail(@RequestPart(value="studyDetailReq") StudyDetailReq studyDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         return new ResponseEntity<>(studyService.createStudy(studyDetailReq, userId), HttpStatus.OK);
     }
     @ResponseBody
     @PutMapping("/{id}")
-    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable("id") Long studyId, @RequestBody StudyDetailReq studyDetailReq) {
+    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable("id") Long studyId, @RequestBody StudyDetailReq studyDetailReq, @RequestPart MultipartFile multipartFile) {
         return new ResponseEntity<>(studyService.updateStudy(studyId, studyDetailReq, userId), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/{id}")
@@ -92,17 +93,18 @@ public class StudyController {
     /**
      * Comment
      **/
+//    public ResponseEntity<StudyDetailDto> postStudyDetail(@RequestPart(value="studyDetailReq") StudyDetailReq studyDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
 
     @ResponseBody
     @PostMapping("/{id}/comment")
-    public ResponseEntity<CommentDto> postComment(@PathVariable("id") Long studyId, @RequestBody CommentReq commentReq) {
+    public ResponseEntity<CommentDto> postComment(@PathVariable("id") Long studyId, @RequestPart(value = "commentReq") CommentReq commentReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         Long postId = studyRepository.findPostByStudy(studyId).getPostId();
         return new ResponseEntity<>(commentService.createComment(postId, commentReq,userId), HttpStatus.OK);
 
     }
     @ResponseBody
     @PutMapping("/{id}/comment/{comment-id}")
-    public ResponseEntity<CommentDto> putComment(@PathVariable("id")Long studyId, @PathVariable("comment-id") Long commentId,@RequestBody CommentReq commentReq) {
+    public ResponseEntity<CommentDto> putComment(@PathVariable("id")Long studyId, @PathVariable("comment-id") Long commentId,@RequestBody CommentReq commentReq, @RequestPart MultipartFile multipartFile) {
         return new ResponseEntity<>(commentService.updateComment(studyId, commentId, commentReq),HttpStatus.ACCEPTED);
     }
 

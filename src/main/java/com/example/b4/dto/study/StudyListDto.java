@@ -15,6 +15,7 @@ public class StudyListDto {
 
     private String title;
     private String category;
+
     private String attachedFile;
     private boolean bookmark;
 

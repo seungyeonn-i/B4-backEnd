@@ -3,6 +3,7 @@ package com.example.b4.dto.study;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.RequestPart;
 
 @Data
 @NoArgsConstructor

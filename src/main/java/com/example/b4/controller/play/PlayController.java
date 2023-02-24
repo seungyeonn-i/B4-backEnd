@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class PlayController {
 
     @ResponseBody
     @PostMapping("/new")
-    public ResponseEntity<PlayDetailDto> postStudyDetail(@RequestBody PlayDetailReq playDetailReq) {
+    public ResponseEntity<PlayDetailDto> postStudyDetail(@RequestPart(value="playDetailReq") PlayDetailReq playDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         return new ResponseEntity<>(playService.createPlay(playDetailReq, userId), HttpStatus.OK);
     }
     @ResponseBody

@@ -9,6 +9,8 @@ import com.example.b4.dto.mind.MindDetailDto;
 import com.example.b4.dto.mind.MindDetailReq;
 import com.example.b4.dto.mind.MindListRes;
 
+import com.example.b4.dto.play.PlayDetailDto;
+import com.example.b4.dto.play.PlayDetailReq;
 import com.example.b4.entity.post.MindCategory;
 import com.example.b4.repository.mind.MindRepository;
 import com.example.b4.service.comment.CommentService;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +76,7 @@ public class MindController {
     }
 
     @ResponseBody @PostMapping("/new")
-    public ResponseEntity<MindDetailDto> postMindDetail(@RequestBody MindDetailReq mindDetailReq) {
+    public ResponseEntity<MindDetailDto> postStudyDetail(@RequestPart(value="mindDetailReq") MindDetailReq mindDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         return new ResponseEntity<>(mindService.createMind(mindDetailReq, userId), HttpStatus.OK);
     }
 
