@@ -69,7 +69,7 @@ public class PlayController {
     }
     @ResponseBody
     @PutMapping("/{id}")
-    public ResponseEntity<PlayDetailDto> putStudyDetail(@PathVariable("id") Long playId, @RequestBody PlayDetailReq playDetailReq) {
+    public ResponseEntity<PlayDetailDto> putStudyDetail(@PathVariable("id") Long playId,@RequestPart(value="playDetailReq") PlayDetailReq playDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         return new ResponseEntity<>(playService.updatePlay(playId, playDetailReq, userId), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/{id}")

@@ -81,7 +81,7 @@ public class MindController {
     }
 
     @ResponseBody @PutMapping("/{id}")
-    public ResponseEntity<MindDetailDto> putMindDetail(@PathVariable("id") Long mindId, @RequestBody MindDetailReq mindDetailReq) {
+    public ResponseEntity<MindDetailDto> putMindDetail(@PathVariable("id") Long mindId, @RequestPart(value="mindDetailReq") MindDetailReq mindDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         return new ResponseEntity<>(mindService.updateMind(mindId, mindDetailReq, userId), HttpStatus.ACCEPTED);
     }
 

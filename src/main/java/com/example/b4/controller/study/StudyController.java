@@ -81,7 +81,7 @@ public class StudyController {
     }
     @ResponseBody
     @PutMapping("/{id}")
-    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable("id") Long studyId, @RequestBody StudyDetailReq studyDetailReq, @RequestPart MultipartFile multipartFile) {
+    public ResponseEntity<StudyDetailDto> putStudyDetail(@PathVariable("id") Long studyId,@RequestPart(value="studyDetailReq") StudyDetailReq studyDetailReq, @RequestPart(value="file",required = false) MultipartFile multipartFile) {
         return new ResponseEntity<>(studyService.updateStudy(studyId, studyDetailReq, userId), HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/{id}")
